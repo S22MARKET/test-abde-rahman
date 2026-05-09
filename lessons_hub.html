@@ -1,290 +1,416 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master English DZ - الدروس</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cinzel:wght@600;800&family=Poppins:wght@400;600;800&display=swap"
-        rel="stylesheet">
+    <title>MASTER ENGLISH DZ — مركز الدروس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;800&family=Poppins:wght@400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
         :root {
-            --bg-dark: #020617;
-            /* نفس اللون الليلي من index.html */
+            --bg: #020617;
             --gold: #d4af37;
-            --gold-light: #f3e5ab;
-            --gold-dim: rgba(212, 175, 55, 0.5);
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
+            --gold-glow: rgba(212,175,55,0.2);
+            --gold-dim: rgba(212,175,55,0.5);
+            --card-bg: rgba(255,255,255,0.025);
+            --text: #f8fafc;
+            --muted: #94a3b8;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
 
         body {
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, rgba(2, 6, 23, 1) 80%);
-            color: var(--text-light);
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* ================= INTRO REMOVED ================= */
-
-        /* انتقال النور من index.html */
-        #flash-overlay {
+        /* خلفية متحركة */
+        .bg-orb {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle, #ffffff 0%, #fef08a 40%, transparent 100%);
-            background-color: var(--bg-dark);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.07;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .orb-1 { width: 600px; height: 600px; background: #d4af37; top: -200px; right: -200px; animation: drift 18s infinite alternate ease-in-out; }
+        .orb-2 { width: 500px; height: 500px; background: #3b82f6; bottom: -150px; left: -150px; animation: drift 22s infinite alternate-reverse ease-in-out; }
+        @keyframes drift { 0% { transform: translate(0,0); } 100% { transform: translate(60px, 60px); } }
+
+        /* انتقال النور */
+        #flash-overlay {
+            position: fixed; inset: 0;
+            background: radial-gradient(circle, #fff 0%, #fef08a 40%, transparent 100%);
+            background-color: var(--bg);
             z-index: 9999;
             pointer-events: none;
         }
 
-        /* ================= HUB SCREEN ================= */
-        .hub-screen {
-            display: block;
-            min-height: 100vh;
-            overflow-y: auto;
-            padding: 3rem 2rem 6rem;
-        }
-
+        /* ===== HEADER ===== */
         .hub-header {
+            position: relative;
+            z-index: 10;
             text-align: center;
-            margin-bottom: 3rem;
+            padding: 3rem 2rem 2rem;
         }
 
-        .hub-header img {
-            width: 80px;
+        .logo-ring {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.2rem;
+        }
+        .logo-ring::before {
+            content: '';
+            position: absolute; inset: -6px;
             border-radius: 50%;
-            border: 1px solid var(--gold-dim);
-            margin-bottom: 1rem;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+            background: conic-gradient(from 0deg, transparent 0%, var(--gold) 50%, transparent 100%);
+            animation: spin 4s linear infinite;
+            filter: blur(4px);
+            opacity: 0.7;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .logo-ring img {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(212,175,55,0.4);
+            position: relative; z-index: 1;
         }
 
-        .hub-bismillah {
+        .hub-basmala {
             font-family: 'Amiri', serif;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: var(--gold-dim);
+            margin-bottom: 0.4rem;
             letter-spacing: 1px;
-            margin-bottom: 0.5rem;
         }
-
         .hub-title {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            color: var(--text-light);
-            letter-spacing: 4px;
+            font-size: 2.2rem;
+            color: var(--text);
+            letter-spacing: 5px;
+            margin-bottom: 0.4rem;
         }
-
-        .hub-subtitle-ar {
-            font-family: 'Amiri', serif;
-            font-size: 1.2rem;
+        .hub-subtitle {
+            font-family: 'Cairo', serif;
+            font-size: 1.1rem;
             color: var(--gold);
-            margin-top: 0.4rem;
+            margin-bottom: 0.5rem;
+        }
+        /* فاصل ذهبي */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 1rem auto;
+        }
+        .divider-line { height: 1px; width: 120px; background: linear-gradient(to right, transparent, var(--gold)); }
+        .divider-line.rev { background: linear-gradient(to left, transparent, var(--gold)); }
+        .divider-star { color: var(--gold); font-size: 1rem; }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 1rem 2rem;
+            margin-bottom: 1rem;
+            position: relative; z-index: 10;
+        }
+        .stat-item {
+            text-align: center;
+            opacity: 0;
+        }
+        .stat-number {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: 800;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-family: 'Cairo', sans-serif;
         }
 
+        /* ===== GRID ===== */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 1rem 2rem 6rem;
+            position: relative; z-index: 10;
         }
 
+        /* ===== LESSON CARD ===== */
         .lesson-card {
-            background: rgba(212, 175, 55, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.12);
-            border-radius: 12px;
-            padding: 2rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(212,175,55,0.08);
+            border-radius: 18px;
+            padding: 2rem 1.8rem;
             text-align: center;
-            backdrop-filter: blur(10px);
-            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+            backdrop-filter: blur(15px);
             text-decoration: none;
-            color: white;
+            color: var(--text);
             position: relative;
             overflow: hidden;
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
+            transition: border-color 0.4s, box-shadow 0.4s;
+            cursor: pointer;
         }
 
+        /* إضاءة داخلية عند الهوفر */
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: -60%; left: -60%;
+            width: 220%; height: 220%;
+            background: radial-gradient(circle at 50% 50%, var(--gold-glow), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .lesson-card:hover::before { opacity: 1; }
         .lesson-card:hover {
-            border-color: var(--gold-dim);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.1);
+            border-color: rgba(212,175,55,0.3);
+            box-shadow: 0 12px 40px rgba(212,175,55,0.08), 0 0 0 1px rgba(212,175,55,0.1);
         }
 
-        .icon-container {
-            width: 64px;
-            height: 64px;
-            background: rgba(212, 175, 55, 0.08);
+        /* رقم الدرس */
+        .lesson-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            width: 32px; height: 32px;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 1.5rem auto;
-            color: var(--gold);
-            font-size: 1.8rem;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: background 0.4s ease;
-        }
-
-        .lesson-card:hover .icon-container {
-            background: rgba(212, 175, 55, 0.15);
-        }
-
-        .lesson-title {
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            display: flex; align-items: center; justify-content: center;
             font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-        }
-
-        .lesson-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-family: 'Amiri', serif;
-            font-size: 1rem;
-        }
-
-        /* زر الدخول للدرس */
-        .enter-lesson-btn {
-            display: inline-block;
-            margin-top: 1.5rem;
-            padding: 8px 24px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            border-radius: 6px;
+            font-size: 0.8rem;
             color: var(--gold);
-            font-family: 'Amiri', serif;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: transparent;
         }
 
-        .lesson-card:hover .enter-lesson-btn {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: var(--gold);
+        /* حلقة الأيقونة */
+        .icon-ring {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+            position: relative;
+            transition: transform 0.4s;
         }
-        
+        .lesson-card:hover .icon-ring { transform: scale(1.1) rotate(-5deg); }
+
+        .lesson-title-en {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+        .lesson-title-ar {
+            font-family: 'Cairo', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+        .lesson-desc {
+            font-size: 0.88rem;
+            color: var(--muted);
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .enter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 28px;
+            border: 1px solid rgba(212,175,55,0.35);
+            border-radius: 30px;
+            color: var(--gold);
+            font-family: 'Cairo', serif;
+            font-size: 1rem;
+            background: transparent;
+            transition: all 0.3s;
+        }
+        .lesson-card:hover .enter-btn {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--gold);
+            gap: 14px;
+        }
+
+        /* كروت بألوان مختلفة */
+        .card-blue .icon-ring { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+        .card-rose .icon-ring { background: rgba(225,29,72,0.12); color: #fb7185; border: 1px solid rgba(225,29,72,0.25); }
+        .card-green .icon-ring { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.25); }
+        .card-purple .icon-ring { background: rgba(139,92,246,0.12); color: #c084fc; border: 1px solid rgba(139,92,246,0.25); }
+        .card-amber .icon-ring { background: rgba(212,175,55,0.12); color: var(--gold); border: 1px solid rgba(212,175,55,0.25); }
+
+        /* كارت الشرائح الأصلية */
+        .card-original {
+            background: rgba(212,175,55,0.03);
+            border-style: dashed;
+        }
+
+        /* ===== FOOTER ===== */
+        .hub-footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-family: 'Amiri', serif;
+            color: rgba(212,175,55,0.3);
+            font-size: 1rem;
+            position: relative; z-index: 10;
+        }
+
+        @media(max-width:768px) {
+            .hub-title { font-size: 1.5rem; letter-spacing: 3px; }
+            .stats-bar { gap: 1.5rem; }
+            .grid { padding: 1rem 1rem 5rem; gap: 1rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- INTRO MOVED TO INDEX.HTML -->
-
-    <!-- Flash Overlay for Seamless Transition from index.html -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
     <div id="flash-overlay"></div>
 
-    <!-- HUB SCREEN -->
-    <div id="hub" class="hub-screen">
-        <div class="hub-header">
-            <img src="assent/Logo.png" alt="Logo">
-            <p class="hub-bismillah">بِسْمِ اللَّهِ</p>
-            <h1 class="hub-title">MASTER ENGLISH DZ</h1>
-            <p class="hub-subtitle-ar">اختر درسك وابدأ بنية التعلم</p>
+    <!-- HEADER -->
+    <header class="hub-header">
+        <div class="logo-ring">
+            <img src="assent/Logo.png" alt="Master English Logo">
         </div>
+        <p class="hub-basmala">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+        <h1 class="hub-title">MASTER ENGLISH DZ</h1>
+        <p class="hub-subtitle">اختر درسك وابدأ بنية التعلم</p>
+        <div class="divider">
+            <div class="divider-line rev"></div>
+            <span class="divider-star">✦</span>
+            <div class="divider-line"></div>
+        </div>
+    </header>
 
-        <div class="grid">
-            <!-- Card 1 -->
-            <a href="present_simple_interactive.html" class="lesson-card">
-                <div class="icon-container"><i class="fa-solid fa-clock"></i></div>
-                <h2 class="lesson-title">Present Simple</h2>
-                <p class="lesson-desc">العادات والحقائق الثابتة</p>
-                <div class="enter-lesson-btn">ابدأ الدرس</div>
-            </a>
-
-            <!-- Card 2 -->
-            <a href="simple_past_interactive.html" class="lesson-card">
-                <div class="icon-container"><i class="fa-solid fa-rotate-left"></i></div>
-                <h2 class="lesson-title">Simple Past</h2>
-                <p class="lesson-desc">الأحداث المنتهية في الماضي</p>
-                <div class="enter-lesson-btn">ابدأ الدرس</div>
-            </a>
-
-            <!-- Card 3 -->
-            <a href="past_continuous_interactive.html" class="lesson-card">
-                <div class="icon-container"><i class="fa-solid fa-spinner"></i></div>
-                <h2 class="lesson-title">Past Continuous</h2>
-                <p class="lesson-desc">الأفعال المستمرة في الماضي</p>
-                <div class="enter-lesson-btn">ابدأ الدرس</div>
-            </a>
-
-            <!-- Card 4 -->
-            <a href="while_when_interactive.html" class="lesson-card">
-                <div class="icon-container"><i class="fa-solid fa-link"></i></div>
-                <h2 class="lesson-title">While &amp; When</h2>
-                <p class="lesson-desc">ربط الأحداث وتسلسل الزمن</p>
-                <div class="enter-lesson-btn">ابدأ الدرس</div>
-            </a>
-
-            <!-- Card 5 -->
-            <a href="awal ard takdimi.html" class="lesson-card">
-                <div class="icon-container"><i class="fa-solid fa-layer-group"></i></div>
-                <h2 class="lesson-title">Original Slides</h2>
-                <p class="lesson-desc">شرائح القواعد الأربعة الكاملة</p>
-                <div class="enter-lesson-btn">مشاهدة</div>
-            </a>
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item" id="stat1">
+            <div class="stat-number">4</div>
+            <div class="stat-label">دروس تفاعلية</div>
+        </div>
+        <div class="stat-item" id="stat2">
+            <div class="stat-number">4MS</div>
+            <div class="stat-label">مستوى السنة الرابعة</div>
+        </div>
+        <div class="stat-item" id="stat3">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">مراجعات مع الصوت</div>
         </div>
     </div>
+
+    <!-- LESSONS GRID -->
+    <div class="grid">
+
+        <!-- 1: Present Simple -->
+        <a href="present_simple_interactive.html" class="lesson-card card-blue">
+            <span class="lesson-badge">01</span>
+            <div class="icon-ring"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            <div class="lesson-title-en">Present Simple</div>
+            <div class="lesson-title-ar">المضارع البسيط</div>
+            <p class="lesson-desc">العادات اليومية، الحقائق الثابتة، والتعابير الزمنية الدالة عليه</p>
+            <div class="enter-btn"><i class="fa-solid fa-headphones"></i> ابدأ الدرس <i class="fa-solid fa-arrow-left" style="font-size:0.8rem;"></i></div>
+        </a>
+
+        <!-- 2: Simple Past -->
+        <a href="simple_past_interactive.html" class="lesson-card card-rose">
+            <span class="lesson-badge">02</span>
+            <div class="icon-ring"><i class="fa-solid fa-rotate-left"></i></div>
+            <div class="lesson-title-en">Simple Past</div>
+            <div class="lesson-title-ar">الماضي البسيط</div>
+            <p class="lesson-desc">الأحداث المنتهية في الماضي، الأفعال المنتظمة والشاذة</p>
+            <div class="enter-btn"><i class="fa-solid fa-headphones"></i> ابدأ الدرس <i class="fa-solid fa-arrow-left" style="font-size:0.8rem;"></i></div>
+        </a>
+
+        <!-- 3: Past Continuous -->
+        <a href="past_continuous_interactive.html" class="lesson-card card-green">
+            <span class="lesson-badge">03</span>
+            <div class="icon-ring"><i class="fa-solid fa-spinner"></i></div>
+            <div class="lesson-title-en">Past Continuous</div>
+            <div class="lesson-title-ar">الماضي المستمر</div>
+            <p class="lesson-desc">الأفعال التي كانت مستمرة في لحظة معينة من الماضي</p>
+            <div class="enter-btn"><i class="fa-solid fa-headphones"></i> ابدأ الدرس <i class="fa-solid fa-arrow-left" style="font-size:0.8rem;"></i></div>
+        </a>
+
+        <!-- 4: While & When -->
+        <a href="while_when_interactive.html" class="lesson-card card-purple">
+            <span class="lesson-badge">04</span>
+            <div class="icon-ring"><i class="fa-solid fa-link"></i></div>
+            <div class="lesson-title-en">While &amp; When</div>
+            <div class="lesson-title-ar">بينما و عندما</div>
+            <p class="lesson-desc">ربط الأحداث الماضية وتسلسل الزمن بين المستمر والبسيط</p>
+            <div class="enter-btn"><i class="fa-solid fa-headphones"></i> ابدأ الدرس <i class="fa-solid fa-arrow-left" style="font-size:0.8rem;"></i></div>
+        </a>
+
+        <!-- 5: Original Slides -->
+        <a href="awal ard takdimi.html" class="lesson-card card-amber card-original">
+            <span class="lesson-badge">⭐</span>
+            <div class="icon-ring"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="lesson-title-en">Original Slides</div>
+            <div class="lesson-title-ar">العرض الشامل</div>
+            <p class="lesson-desc">شرائح جميع القواعد الأربعة المجمعة في عرض واحد متكامل</p>
+            <div class="enter-btn"><i class="fa-solid fa-display"></i> مشاهدة العرض <i class="fa-solid fa-arrow-left" style="font-size:0.8rem;"></i></div>
+        </a>
+
+    </div>
+
+    <div class="hub-footer">اللهم انفعنا بما علمتنا وعلمنا ما ينفعنا</div>
 
     <script>
         window.onload = () => {
             const tl = gsap.timeline();
 
-            // تلاشي الومضة الذهبية بهدوء
-            tl.to("#flash-overlay", { opacity: 0, duration: 1.8, ease: "power2.inOut" })
+            // تلاشي الومضة
+            tl.to("#flash-overlay", { opacity: 0, duration: 1.5, ease: "power2.inOut" })
               .set("#flash-overlay", { display: "none" });
 
-            // ظهور العناصر بوقار
-            tl.fromTo(".hub-header img",
-                { opacity: 0, scale: 0.85 },
-                { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }, "-=1")
-              .fromTo(".hub-bismillah",
-                { opacity: 0, y: -10 },
-                { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "-=0.8")
-              .fromTo(".hub-title",
-                { opacity: 0, letterSpacing: "12px" },
-                { opacity: 1, letterSpacing: "4px", duration: 1.2, ease: "power3.out" }, "-=0.7")
-              .fromTo(".hub-subtitle-ar",
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "-=0.8")
-              .fromTo(".lesson-card",
-                { opacity: 0, y: 30 },
-                { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: "power3.out" },
-                "-=0.5"
-            );
+            // ظهور الهيدر بوقار
+            tl.fromTo(".logo-ring", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1.2, ease: "back.out(1.7)" }, "-=1")
+              .fromTo(".hub-basmala", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 1 }, "-=0.8")
+              .fromTo(".hub-title", { opacity: 0, letterSpacing: "15px" }, { opacity: 1, letterSpacing: "5px", duration: 1.3, ease: "power3.out" }, "-=0.8")
+              .fromTo(".hub-subtitle", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.8 }, "-=0.7")
+              .fromTo(".divider", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.8, ease: "power2.out" }, "-=0.5")
+              .fromTo(".stat-item", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "back.out(1.5)" }, "-=0.3")
+              .fromTo(".lesson-card", { opacity: 0, y: 40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.12, ease: "power3.out" }, "-=0.4")
+              .fromTo(".hub-footer", { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.3");
 
-            // تأثير الإضاءة الهادئة عند تحريك الماوس (Parallax خفيف)
-            const cards = document.querySelectorAll('.lesson-card');
-            cards.forEach(card => {
+            // تأثير الإضاءة الثلاثية الأبعاد عند تحريك الماوس
+            document.querySelectorAll('.lesson-card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
-                    const rotateX = ((y - rect.height / 2) / rect.height) * -6;
-                    const rotateY = ((x - rect.width / 2) / rect.width) * 6;
-                    gsap.to(card, {
-                        rotationX: rotateX,
-                        rotationY: rotateY,
-                        transformPerspective: 800,
-                        ease: "power1.out",
-                        duration: 0.5
-                    });
+                    const rotX = ((y - rect.height / 2) / rect.height) * -8;
+                    const rotY = ((x - rect.width / 2) / rect.width) * 8;
+                    gsap.to(card, { rotationX: rotX, rotationY: rotY, transformPerspective: 900, ease: "power1.out", duration: 0.4 });
                 });
                 card.addEventListener('mouseleave', () => {
-                    gsap.to(card, {
-                        rotationX: 0,
-                        rotationY: 0,
-                        ease: "power3.out",
-                        duration: 0.8
-                    });
+                    gsap.to(card, { rotationX: 0, rotationY: 0, ease: "power3.out", duration: 0.8 });
+                });
+                // صوت عند النقر
+                card.addEventListener('click', () => {
+                    gsap.to(card, { scale: 0.95, duration: 0.15, yoyo: true, repeat: 1 });
                 });
             });
         };
