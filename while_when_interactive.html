@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Lesson - While & When</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root { --bg-color: #0f172a; --text-color: #f8fafc; --accent: #8b5cf6; --accent-glow: rgba(139, 92, 246, 0.5); --card-bg: rgba(30, 41, 59, 0.7); }
+        body { margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-color); font-family: 'Poppins', 'Cairo', sans-serif; overflow: hidden; display: flex; flex-direction: column; height: 100vh; background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%); }
+        .shape { position: absolute; filter: blur(80px); z-index: 0; opacity: 0.4; border-radius: 50%; }
+        .shape-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: #8b5cf6; animation: float 10s infinite alternate; }
+        .shape-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: #a855f7; animation: float 12s infinite alternate-reverse; }
+        @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(50px, 50px); } }
+        .container { flex:1; position:relative; z-index:10; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:2rem; padding-right:120px; text-align:center; }
+        .small-btn { width:45px !important; height:45px !important; font-size:1.1rem !important; }
+        @media(max-width:768px) { .controls { right:10px; padding:15px 10px; gap:10px; border-radius:30px; } .container { padding-right:80px; } }
+        #slide-container { max-width:900px; width:100%; }
+        .title { font-size:3.5rem; font-weight:800; background:linear-gradient(to right,#c084fc,#e879f9); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:1rem; opacity:0; transform:translateY(30px); }
+        .subtitle { font-size:2rem; color:#cbd5e1; margin-bottom:1rem; opacity:0; transform:translateY(30px); }
+        .arabic-text { font-family:'Cairo',sans-serif; font-size:1.6rem; color:#fbbf24; direction:rtl; opacity:0; transform:translateY(30px); margin-bottom:2rem; background:rgba(0,0,0,0.2); padding:10px 20px; border-radius:10px; display:inline-block; }
+        .examples-grid { display:flex; flex-direction:column; gap:1rem; align-items:center; margin-top:1rem; }
+        .example-card { background:var(--card-bg); border:1px solid rgba(255,255,255,0.1); padding:1rem 2.5rem; border-radius:1rem; font-size:1.6rem; font-weight:600; backdrop-filter:blur(10px); box-shadow:0 10px 30px rgba(0,0,0,0.3); opacity:0; transform:scale(0.9); color:#e2e8f0; border-left:5px solid var(--accent); text-align:left; width:100%; max-width:600px; }
+        .progress-wrapper { position:fixed; bottom:0; left:0; right:0; height:10px; background:rgba(255,255,255,0.1); cursor:pointer; z-index:30; transition:height 0.2s; }
+        .progress-wrapper:hover { height:20px; }
+        .progress-bar { height:100%; background:linear-gradient(to right,#a855f7,#c084fc); width:0%; transition:width 0.1s linear; box-shadow:0 0 15px var(--accent); }
+        .controls { position:fixed; right:20px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; align-items:center; gap:12px; background:rgba(15,23,42,0.88); padding:20px 15px; border-radius:40px; backdrop-filter:blur(15px); border:1px solid rgba(255,255,255,0.1); z-index:20; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+        .btn { background:var(--accent); color:white; border:none; width:60px; height:60px; border-radius:50%; font-size:1.5rem; cursor:pointer; display:flex; justify-content:center; align-items:center; transition:all 0.3s; box-shadow:0 0 20px var(--accent-glow); flex-shrink:0; }
+        .btn:hover { transform:scale(1.1); background:#7c3aed; }
+        .time-display { font-family:monospace; font-size:1rem; color:#cbd5e1; font-weight:bold; }
+        .sync-offset { font-family:monospace; font-size:0.85rem; color:#fbbf24; font-weight:bold; letter-spacing:1px; }
+        .sync-btn { background:rgba(251,191,36,0.15) !important; border:1px solid rgba(251,191,36,0.4) !important; box-shadow:none !important; }
+        .sync-btn:hover { background:rgba(251,191,36,0.3) !important; }
+        .visualizer { display:flex; gap:5px; align-items:flex-end; height:40px; position:absolute; bottom:30px; left:50%; transform:translateX(-50%); opacity:0; transition:opacity 0.5s; }
+        .visualizer.active { opacity:1; }
+        .bar { width:6px; background:var(--accent); border-radius:3px; height:5px; }
+        @keyframes sound { 0% { height:5px; opacity:0.5; } 100% { height:35px; opacity:1; } }
+        .back-btn { position:fixed; top:20px; left:20px; color:white; text-decoration:none; font-size:1rem; background:rgba(255,255,255,0.1); padding:10px 20px; border-radius:30px; z-index:100; transition:0.3s; backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); }
+        .back-btn:hover { background:rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+    <a href="lessons_hub.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Hub</a>
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+
+    <div class="container">
+        <div id="slide-container">
+            <div class="title" id="slide-title">Ready?</div>
+            <div class="subtitle" id="slide-subtitle">Click Play for While & When</div>
+            <div class="arabic-text" id="slide-arabic" style="display: none;"></div>
+            <div class="examples-grid" id="slide-examples"></div>
+        </div>
+    </div>
+
+    <div class="visualizer" id="visualizer">
+        <div class="bar" style="animation: sound 0.4s infinite alternate;"></div>
+        <div class="bar" style="animation: sound 0.6s infinite alternate 0.1s;"></div>
+        <div class="bar" style="animation: sound 0.5s infinite alternate 0.2s;"></div>
+        <div class="bar" style="animation: sound 0.7s infinite alternate 0.1s;"></div>
+        <div class="bar" style="animation: sound 0.4s infinite alternate 0.3s;"></div>
+    </div>
+
+    <div class="progress-wrapper" id="progressContainer"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="controls">
+        <span class="time-display" id="currentTime">0:00</span>
+        <button class="btn small-btn" id="rewindBtn" title="-5s"><i class="fa-solid fa-backward-step"></i></button>
+        <button class="btn" id="playBtn" style="width:70px;height:70px;font-size:1.8rem;"><i class="fa-solid fa-play"></i></button>
+        <button class="btn small-btn" id="forwardBtn" title="+5s"><i class="fa-solid fa-forward-step"></i></button>
+        <button class="btn small-btn" id="speedBtn" style="font-size:1rem;font-weight:bold;">1x</button>
+        <!-- ضبط التزامن -->
+        <div style="width:100%; height:1px; background:rgba(255,255,255,0.1);"></div>
+        <button class="btn small-btn sync-btn" id="syncMinusBtn" title="الشرائح تسبق الصوت: اضغط">-1s</button>
+        <span class="sync-offset" id="offsetDisplay">±0s</span>
+        <button class="btn small-btn sync-btn" id="syncPlusBtn" title="الصوت يسبق الشرائح: اضغط">+1s</button>
+        <span class="time-display" id="duration">0:00</span>
+    </div>
+
+    <audio id="lessonAudio" src="sawtiyat/While . When.m4a"></audio>
+
+    <script>
+        const lessonData = [
+            { time: 0, title: "While & When", subtitle: "الربط بين أحداث الماضي", arabic: "درسنا حول كيفية دمج حدثين في الماضي معاً" },
+            { time: 5, title: "1. While (بينما)", subtitle: "Followed by Past Continuous", arabic: "دائماً يأتي بعدها الماضي المستمر (الحدث الطويل)" },
+            { time: 15, title: "Example of While", subtitle: "حدث طويل قاطعه حدث قصير", examples: ["While I was studying, the phone rang.", "While we were playing, it started to rain."] },
+            { time: 30, title: "2. When (عندما)", subtitle: "Followed by Simple Past", arabic: "دائماً يأتي بعدها الماضي البسيط (الحدث القصير الذي يقطع)" },
+            { time: 40, title: "Example of When", subtitle: "حدث قصير يقطع حدثاً طويلاً", examples: ["I was sleeping when the alarm went off.", "They were eating when the light went out."] },
+            { time: 50, title: "Golden Rule", subtitle: "While + Continuous | When + Simple", arabic: "تذكر هذه القاعدة الذهبية دائماً!" }
+        ];
+
+        // --- CORE LOGIC ---
+        const audio = document.getElementById('lessonAudio');
+        const playBtn = document.getElementById('playBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationDisplay = document.getElementById('duration');
+        const visualizer = document.getElementById('visualizer');
+        const slideTitle = document.getElementById('slide-title');
+        const slideSubtitle = document.getElementById('slide-subtitle');
+        const slideArabic = document.getElementById('slide-arabic');
+        const slideExamples = document.getElementById('slide-examples');
+
+        let currentSlideIndex = -1;
+
+        // --- NEW FEATURES ---
+        const rewindBtn = document.getElementById('rewindBtn');
+        const forwardBtn = document.getElementById('forwardBtn');
+        const speedBtn = document.getElementById('speedBtn');
+        
+        rewindBtn.addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 5); });
+        forwardBtn.addEventListener('click', () => { audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); });
+        
+        let playbackRates = [1, 1.25, 1.5, 2];
+        let currentRateIndex = 0;
+        speedBtn.addEventListener('click', () => {
+            currentRateIndex = (currentRateIndex + 1) % playbackRates.length;
+            audio.playbackRate = playbackRates[currentRateIndex];
+            speedBtn.innerText = playbackRates[currentRateIndex] + 'x';
+        });
+
+        // ضبط التزامن
+        let slideOffset = 0;
+        document.getElementById('syncMinusBtn').addEventListener('click', () => {
+            slideOffset -= 1;
+            document.getElementById('offsetDisplay').textContent = (slideOffset >= 0 ? '+' : '') + slideOffset + 's';
+            currentSlideIndex = -1; // إعادة حساب الشريحة
+        });
+        document.getElementById('syncPlusBtn').addEventListener('click', () => {
+            slideOffset += 1;
+            document.getElementById('offsetDisplay').textContent = (slideOffset >= 0 ? '+' : '') + slideOffset + 's';
+            currentSlideIndex = -1;
+        });
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) { audio.play(); playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>'; visualizer.classList.add('active'); if(currentSlideIndex === -1) updateSlide(0); } 
+            else { audio.pause(); playBtn.innerHTML = '<i class="fa-solid fa-play"></i>'; visualizer.classList.remove('active'); }
+        });
+
+        function formatTime(seconds) { if(isNaN(seconds)) return "0:00"; const m = Math.floor(seconds / 60); const s = Math.floor(seconds % 60); return `${m}:${s < 10 ? '0' : ''}${s}`; }
+        audio.addEventListener('loadedmetadata', () => { durationDisplay.innerText = formatTime(audio.duration); });
+
+        audio.addEventListener('timeupdate', () => {
+            const time = audio.currentTime; currentTimeDisplay.innerText = formatTime(time); progressBar.style.width = `${(time / audio.duration) * 100}%`;
+            const adjustedTime = time - slideOffset; // تطبيق الإزاحة
+            let newSlideIndex = -1;
+            for (let i = lessonData.length - 1; i >= 0; i--) { if (adjustedTime >= lessonData[i].time) { newSlideIndex = i; break; } }
+            if (newSlideIndex !== currentSlideIndex && newSlideIndex !== -1) updateSlide(newSlideIndex);
+        });
+
+        progressContainer.addEventListener('click', (e) => { const rect = progressContainer.getBoundingClientRect(); const pos = (e.clientX - rect.left) / rect.width; audio.currentTime = pos * audio.duration; });
+
+        function updateSlide(index) {
+            currentSlideIndex = index; const data = lessonData[index];
+            gsap.to([slideTitle, slideSubtitle, slideArabic, slideExamples.children], {
+                y: -30, opacity: 0, duration: 0.3, stagger: 0.05,
+                onComplete: () => {
+                    slideTitle.innerText = data.title || ""; slideSubtitle.innerText = data.subtitle || "";
+                    if(data.arabic) { slideArabic.innerText = data.arabic; slideArabic.style.display = "inline-block"; } else { slideArabic.style.display = "none"; }
+                    slideExamples.innerHTML = "";
+                    if (data.examples) { data.examples.forEach(ex => { const div = document.createElement('div'); div.className = 'example-card'; div.innerHTML = `<i class="fa-solid fa-angle-right text-purple-400 mr-3"></i> ${ex}`; slideExamples.appendChild(div); }); }
+                    gsap.fromTo([slideTitle, slideSubtitle, slideArabic], { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.7)" });
+                    if (data.examples) { gsap.fromTo(slideExamples.children, { scale: 0.8, opacity: 0, x: -30 }, { scale: 1, opacity: 1, x: 0, duration: 0.5, stagger: 0.15, ease: "back.out(1.5)", delay: 0.2 }); }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

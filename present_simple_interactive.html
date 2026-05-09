@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Lesson - Present Simple</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --card-bg: rgba(30, 41, 59, 0.7);
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Poppins', 'Cairo', sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+        }
+        /* Background animated shapes */
+        .shape {
+            position: absolute;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.4;
+            border-radius: 50%;
+        }
+        .shape-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: #3b82f6; animation: float 10s infinite alternate; }
+        .shape-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: #8b5cf6; animation: float 12s infinite alternate-reverse; }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* تعديل الحاوية لتلائم الوضع الجديد */
+        .container {
+            flex: 1;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            padding-right: 120px; /* لتفادي لوحة التحكم */
+            text-align: center;
+        }
+
+        @media(max-width: 768px) {
+            .controls { right: 10px; padding: 15px 10px; gap: 10px; border-radius: 30px; }
+            .btn { width: 50px; height: 50px; font-size: 1.2rem; }
+            .small-btn { width: 40px !important; height: 40px !important; font-size: 1rem !important; }
+            .container { padding-right: 80px; }
+        }
+
+        #slide-container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .arabic-text {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.6rem;
+            color: #fbbf24;
+            direction: rtl;
+            opacity: 0;
+            transform: translateY(30px);
+            margin-bottom: 2rem;
+            background: rgba(0,0,0,0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .examples-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .example-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 2.5rem;
+            border-radius: 1rem;
+            font-size: 1.6rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: scale(0.9);
+            color: #e2e8f0;
+            border-left: 5px solid var(--accent);
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* شريط التقدم السفلي جداً */
+        .progress-wrapper {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            cursor: pointer;
+            z-index: 30;
+            transition: height 0.2s;
+        }
+        .progress-wrapper:hover { height: 20px; }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* لوحة التحكم الجانبية */
+        .controls {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background: rgba(15, 23, 42, 0.85);
+            padding: 20px 15px;
+            border-radius: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 20;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px var(--accent-glow);
+            flex-shrink: 0;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            background: #2563eb;
+        }
+        
+        .small-btn { width: 45px !important; height: 45px !important; font-size: 1.1rem !important; }
+
+        .time-display {
+            font-family: monospace;
+            font-size: 1rem;
+            color: #cbd5e1;
+            font-weight: bold;
+        }
+
+        /* Audio Visualizer Animation */
+        .visualizer {
+            display: flex;
+            gap: 5px;
+            align-items: flex-end;
+            height: 40px;
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .visualizer.active { opacity: 1; }
+        .bar {
+            width: 6px;
+            background: var(--accent);
+            border-radius: 3px;
+            height: 5px;
+        }
+        @keyframes sound {
+            0% { height: 5px; opacity: 0.5; }
+            100% { height: 35px; opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+
+    <div class="container">
+        <div id="slide-container">
+            <div class="title" id="slide-title">Are you ready?</div>
+            <div class="subtitle" id="slide-subtitle">Click Play to start the interactive lesson</div>
+            <div class="arabic-text" id="slide-arabic" style="display: none;"></div>
+            <div class="examples-grid" id="slide-examples"></div>
+        </div>
+    </div>
+
+    <!-- Audio Visualizer -->
+    <div class="visualizer" id="visualizer">
+        <div class="bar" style="animation: sound 0.4s infinite alternate;"></div>
+        <div class="bar" style="animation: sound 0.6s infinite alternate 0.1s;"></div>
+        <div class="bar" style="animation: sound 0.5s infinite alternate 0.2s;"></div>
+        <div class="bar" style="animation: sound 0.7s infinite alternate 0.1s;"></div>
+        <div class="bar" style="animation: sound 0.4s infinite alternate 0.3s;"></div>
+        <div class="bar" style="animation: sound 0.6s infinite alternate 0.2s;"></div>
+    </div>
+
+    <!-- أداة التزامن (للمعلم) -->
+    <div id="syncPanel" style="position:fixed; top:20px; left:20px; background:rgba(15,23,42,0.95); padding:20px; border-radius:15px; z-index:1000; border: 1px solid var(--accent); display:none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); direction: rtl; text-align: right; font-family: 'Cairo', sans-serif; max-width: 350px;">
+        <h3 style="margin-bottom:10px; font-size:1.3rem; color: var(--accent);">أداة ضبط التزامن ⏱️</h3>
+        <p style="font-size:0.95rem; color:#cbd5e1; margin-bottom:15px; line-height:1.6;">قم بتشغيل المقطع، وعندما تسمع نفسك تبدأ في شرح الشريحة، اضغط على زر "حفظ التوقيت".</p>
+        <button id="recordTimeBtn" class="btn" style="width:100%; border-radius:10px; height:50px; font-size:1.1rem; margin-bottom:10px; background:var(--accent); font-family: 'Cairo', sans-serif;">حفظ توقيت الشريحة 1</button>
+        <button id="exportTimesBtn" class="btn" style="width:100%; border-radius:10px; height:50px; font-size:1.1rem; background:#334155; font-family: 'Cairo', sans-serif;">نسخ التوقيتات النهائية</button>
+    </div>
+    <button onclick="document.getElementById('syncPanel').style.display='block'; this.style.display='none';" style="position:fixed; top:20px; left:20px; background:rgba(255,255,255,0.1); border:none; color:white; padding:12px; border-radius:50%; cursor:pointer; z-index:999; transition: 0.3s; box-shadow: 0 0 10px rgba(0,0,0,0.3);" title="أداة التزامن"><i class="fa-solid fa-gear"></i></button>
+
+    <!-- شريط التقدم السفلي جداً -->
+    <div class="progress-wrapper" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- لوحة التحكم الجانبية -->
+    <div class="controls">
+        <span class="time-display" id="currentTime">0:00</span>
+        <button class="btn small-btn" id="rewindBtn" title="رجوع 5 ثواني"><i class="fa-solid fa-backward-step"></i></button>
+        <button class="btn" id="playBtn" style="width: 70px; height: 70px; font-size: 1.8rem;"><i class="fa-solid fa-play"></i></button>
+        <button class="btn small-btn" id="forwardBtn" title="تقدم 5 ثواني"><i class="fa-solid fa-forward-step"></i></button>
+        <button class="btn small-btn" id="speedBtn" title="السرعة" style="font-size: 1rem; font-family: 'Poppins', sans-serif; font-weight: bold;">1x</button>
+        <span class="time-display" id="duration">0:00</span>
+    </div>
+
+    <!-- AUDIO SOURCE -->
+    <audio id="lessonAudio" src="sawtiyat/Present simple.m4a"></audio>
+
+    <script>
+        // --- TIMESTAMPS AND CONTENT ---
+        // يمكنك تعديل التوقيت (time بالثواني) ليتطابق بدقة مع توقيت كلامك في الصوت
+        const lessonData = [
+            { time: 0, title: "The Present Simple Tense", subtitle: "المضارع البسيط", arabic: "مرحباً بكم في درس اليوم" },
+            { time: 4, title: "When do we use it?", subtitle: "Daily routines, facts, habits", arabic: "وقت نستعملوه؟ الأفعال اليومية، الحقائق، والعادات" },
+            { time: 10, title: "Forms (صيغ الفعل)", subtitle: "Affirmative | Negative | Interrogative", arabic: "عنا 3 صيغ: الإثبات، النفي، والاستفهام" },
+            { time: 15, title: "1. Affirmative Form", subtitle: "I / You / We / They ➔ Verb", arabic: "نضع الفعل كما هو مع هذه الضمائر", examples: ["I learn, I want.", "We visit, we go, we do.", "They wake up, they play, watch."] },
+            { time: 25, title: "2. Negative Form", subtitle: "Subject + do/does not + Verb", arabic: "في النفي نستخدم do أو does مع not", examples: ["I / You / We / They ➔ do not", "He / She / It ➔ does not"] },
+            { time: 33, title: "Negative Examples", subtitle: "أمثلة على صيغة النفي", examples: ["She doesn't know.", "He doesn't play.", "I don't learn.", "I do not wake up."] },
+            { time: 42, title: "3. Interrogative Form", subtitle: "Do / Does + Subject + Verb ?", arabic: "في السؤال نبدأ بـ Do أو Does" },
+            { time: 47, title: "Interrogative (Do)", subtitle: "أمثلة مع Do", examples: ["Do you write?", "Do you visit?", "Do we learn?"] },
+            { time: 54, title: "Interrogative (Does)", subtitle: "أمثلة مع Does", examples: ["Does he learn?", "Does Mohammed play?"] },
+            { time: 60, title: "Time Expressions", subtitle: "الكلمات الدلالية للمضارع البسيط", arabic: "كي نلقاو هاد الكلمات، نعرفوا أننا في المضارع البسيط", examples: ["Always, usually, often, sometimes, never", "Every day, every week, every night..."] },
+            { time: 75, title: "Conclusion", subtitle: "The Present Simple is easy!", arabic: "راجعوا الأمثلة جيداً، بالتوفيق!" }
+        ];
+
+        const audio = document.getElementById('lessonAudio');
+        const playBtn = document.getElementById('playBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressContainer = document.getElementById('progressContainer');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationDisplay = document.getElementById('duration');
+        const visualizer = document.getElementById('visualizer');
+
+        const slideTitle = document.getElementById('slide-title');
+        const slideSubtitle = document.getElementById('slide-subtitle');
+        const slideArabic = document.getElementById('slide-arabic');
+        const slideExamples = document.getElementById('slide-examples');
+
+        let currentSlideIndex = -1;
+        let isPlaying = false;
+
+        // --- NEW FEATURES ---
+        const rewindBtn = document.getElementById('rewindBtn');
+        const forwardBtn = document.getElementById('forwardBtn');
+        const speedBtn = document.getElementById('speedBtn');
+        
+        rewindBtn.addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 5); });
+        forwardBtn.addEventListener('click', () => { audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); });
+        
+        let playbackRates = [1, 1.25, 1.5, 2];
+        let currentRateIndex = 0;
+        speedBtn.addEventListener('click', () => {
+            currentRateIndex = (currentRateIndex + 1) % playbackRates.length;
+            audio.playbackRate = playbackRates[currentRateIndex];
+            speedBtn.innerText = playbackRates[currentRateIndex] + 'x';
+        });
+
+        // --- SYNC MODE LOGIC ---
+        const recordTimeBtn = document.getElementById('recordTimeBtn');
+        const exportTimesBtn = document.getElementById('exportTimesBtn');
+        let syncIndex = 0;
+        
+        recordTimeBtn.addEventListener('click', () => {
+            if (syncIndex < lessonData.length) {
+                lessonData[syncIndex].time = Math.floor(audio.currentTime);
+                syncIndex++;
+                if (syncIndex < lessonData.length) {
+                    recordTimeBtn.innerText = `حفظ توقيت الشريحة ${syncIndex + 1}`;
+                } else {
+                    recordTimeBtn.innerText = "تم الحفظ بنجاح! ✅";
+                    recordTimeBtn.style.background = "#10b981";
+                }
+            }
+        });
+        
+        exportTimesBtn.addEventListener('click', () => {
+            let output = "انسخ هذه الأرقام والصقها في كود lessonData:\\n\\n";
+            lessonData.forEach((d, i) => {
+                output += `Slide ${i+1} (${d.title}): time: ${d.time}\\n`;
+            });
+            alert(output);
+            console.log(output);
+        });
+
+        // Play / Pause
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                isPlaying = true;
+                visualizer.classList.add('active');
+                if(currentSlideIndex === -1) updateSlide(0);
+            } else {
+                audio.pause();
+                playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                isPlaying = false;
+                visualizer.classList.remove('active');
+            }
+        });
+
+        // Format Time function
+        function formatTime(seconds) {
+            if(isNaN(seconds)) return "0:00";
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationDisplay.innerText = formatTime(audio.duration);
+        });
+
+        // Update progress and check for slide change dynamically
+        audio.addEventListener('timeupdate', () => {
+            const time = audio.currentTime;
+            currentTimeDisplay.innerText = formatTime(time);
+            progressBar.style.width = `${(time / audio.duration) * 100}%`;
+
+            // Find the correct slide for current time
+            let newSlideIndex = -1;
+            for (let i = lessonData.length - 1; i >= 0; i--) {
+                if (time >= lessonData[i].time) {
+                    newSlideIndex = i;
+                    break;
+                }
+            }
+
+            if (newSlideIndex !== currentSlideIndex && newSlideIndex !== -1) {
+                updateSlide(newSlideIndex);
+            }
+        });
+
+        // Click on progress bar to seek
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pos * audio.duration;
+        });
+
+        // Animate Slide Change using GSAP for "Wow" factor
+        function updateSlide(index) {
+            currentSlideIndex = index;
+            const data = lessonData[index];
+
+            // Animate Out
+            gsap.to([slideTitle, slideSubtitle, slideArabic, slideExamples.children], {
+                y: -30,
+                opacity: 0,
+                duration: 0.3,
+                stagger: 0.05,
+                onComplete: () => {
+                    // Update content
+                    slideTitle.innerText = data.title || "";
+                    slideSubtitle.innerText = data.subtitle || "";
+                    
+                    if(data.arabic) {
+                        slideArabic.innerText = data.arabic;
+                        slideArabic.style.display = "inline-block";
+                    } else {
+                        slideArabic.style.display = "none";
+                    }
+                    
+                    slideExamples.innerHTML = "";
+                    if (data.examples) {
+                        data.examples.forEach(ex => {
+                            const div = document.createElement('div');
+                            div.className = 'example-card';
+                            div.innerHTML = `<i class="fa-solid fa-angle-right text-blue-400 mr-3"></i> ${ex}`;
+                            slideExamples.appendChild(div);
+                        });
+                    }
+
+                    // Animate In
+                    gsap.fromTo([slideTitle, slideSubtitle, slideArabic], 
+                        { y: 30, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.7)" }
+                    );
+
+                    if (data.examples) {
+                        gsap.fromTo(slideExamples.children,
+                            { scale: 0.8, opacity: 0, x: -30 },
+                            { scale: 1, opacity: 1, x: 0, duration: 0.5, stagger: 0.15, ease: "back.out(1.5)", delay: 0.2 }
+                        );
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

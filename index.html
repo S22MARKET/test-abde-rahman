@@ -1,1257 +1,250 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MASTER ENGLISH DZ - 4 MS</title>
-    
-    <!-- خطوط احترافية -->
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@600;700&family=Poppins:wght@400;500;600;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASTER ENGLISH DZ - Welcome</title>
+
+    <!-- خطوط إسلامية واحترافية -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cinzel:wght@600;800&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
-        :root {
-            --blue: #2563eb; --light-blue: #eff6ff;
-            --green: #16a34a; --light-green: #f0fdf4;
-            --red: #e11d48; --light-red: #fff1f2;
-            --purple: #7c3aed; --light-purple: #f5f3ff;
-            --orange: #ea580c; --light-orange: #fff7ed;
-            --bg-paper: #f8fafc;
-            --text-dark: #1e293b;
-        }
-
-        body, html {
-            margin: 0; padding: 0; height: 100%;
-            background-color: #e2e8f0;
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-dark);
-            overflow: hidden; 
-        }
-
-        .swiper { width: 100%; height: 100%; }
-        
-        .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2vh 2vw; 
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        /* البطاقة الاحترافية */
-        .paper-card {
-            background: #ffffff;
+        body,
+        html {
             width: 100%;
-            max-width: 850px; /* عرض أنيق وملموم لشاشات الحاسوب */
-            height: auto;
-            max-height: 88vh; /* ارتفاع أقل قليلاً لاستجابة أفضل */
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05);
-            overflow-y: auto; 
-            position: relative;
-            background-image: linear-gradient(#f1f5f9 1px, transparent 1px);
-            background-size: 100% 40px;
-            border-top: 8px solid var(--blue);
-            scrollbar-width: thin;
-            scrollbar-color: #cbd5e1 transparent;
-            -webkit-overflow-scrolling: touch; /* لأجهزة الآيباد والآيفون */
+            height: 100%;
+            background: #020617;
+            /* لون أزرق ليلي عميق ووقور */
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .paper-card::-webkit-scrollbar { width: 8px; }
-        .paper-card::-webkit-scrollbar-track { background: transparent; }
-        .paper-card::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-
-        .logo-container {
+        /* تأثيرات الإضاءة الهادئة */
+        .bg-glow {
             position: absolute;
-            top: 20px;
-            right: 30px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.08) 0%, rgba(2, 6, 23, 1) 80%);
+            z-index: 0;
+        }
+
+        /* الحاوية الرئيسية */
+        .intro-container {
+            position: relative;
             z-index: 10;
-        }
-        
-        .logo {
-            height: 55px;
-            width: 55px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border: 3px solid white;
-        }
-        
-        .teacher-name {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1em;
-            color: var(--blue);
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        h1, h2, h3 { font-family: 'Dancing Script', cursive; margin: 0 0 15px 0; font-weight: 700; line-height: 1.2; }
-        h1 { font-size: 3.5em; text-align: center; color: var(--blue); margin-top: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.05); }
-        h2 { font-size: 2.4em; color: var(--blue); border-bottom: 2px dashed #cbd5e1; padding-bottom: 10px; margin-top: 10px; }
-        h3 { font-size: 1.6em; font-family: 'Poppins', sans-serif; display: flex; align-items: center; gap: 10px; }
-
-        .badge {
-            background: #334155; color: white; font-family: 'Poppins', sans-serif;
-            font-size: 0.4em; padding: 4px 12px; border-radius: 20px; vertical-align: middle; margin-left: 10px;
-            font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
-        }
-
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 20px; }
-
-        .rule-box {
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            border-left: 6px solid #cbd5e1;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            position: relative;
-            font-size: 1em;
             display: flex;
             flex-direction: column;
-        }
-        .rule-box.blue { border-color: var(--blue); background: var(--light-blue); }
-        .rule-box.green { border-color: var(--green); background: var(--light-green); }
-        .rule-box.red { border-color: var(--red); background: var(--light-red); }
-        .rule-box.orange { border-color: var(--orange); background: var(--light-orange); }
-        .rule-box.purple { border-color: var(--purple); background: var(--light-purple); }
-
-        .structure {
-            display: inline-block;
-            background: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: 600;
-            color: var(--red);
-            border: 1px solid #e2e8f0;
-            margin: 8px 0;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.05em;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-
-        .example {
-            font-family: 'Caveat', cursive;
-            font-size: 1.6em;
-            color: #334155;
-            margin: 10px 0;
-            line-height: 1.3;
-            padding-left: 15px;
-            border-left: 2px solid #94a3b8;
-        }
-
-        .highlight { background: rgba(253, 224, 71, 0.7); padding: 0 6px; border-radius: 4px; font-weight: bold; }
-
-        .arabic-hint {
-            font-family: 'Aref Ruqaa', serif;
-            font-size: 1.2em;
-            direction: rtl;
-            text-align: right;
-            color: #475569;
-            background: #f1f5f9;
-            padding: 8px 12px;
-            border-radius: 8px;
-            border-right: 4px solid #cbd5e1;
-            margin-bottom: 10px;
-        }
-
-        /* مربعات الإيموجي والأيقونات (بديلة للصور البشرية) */
-        figure.pro-emoji-box {
-            margin: 20px 0 0 0;
-            padding: 20px;
-            border-radius: 12px;
-            background: white;
-            border: 2px dashed #cbd5e1;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            align-items: center;
             text-align: center;
+            width: 100%;
+        }
+
+        /* النصوص الإسلامية (مخفية في البداية) */
+        .islamic-text {
+            font-family: 'Amiri', serif;
+            font-size: 4rem;
+            color: #d4af37;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            position: absolute;
+            opacity: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            text-align: center;
+        }
+
+        /* واجهة الأكاديمية (مخفية في البداية) */
+        .academy-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-top: auto;
-            transition: all 0.3s ease;
-        }
-        figure.pro-emoji-box:hover {
-            border-color: var(--blue);
-            transform: scale(1.02);
-            background: var(--light-blue);
-        }
-        .huge-icon {
-            font-size: 4em;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        figure.pro-emoji-box figcaption {
-            font-size: 0.9em;
-            color: #475569;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        ul { list-style: none; padding: 0; margin: 0; }
-        li { margin-bottom: 10px; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; }
-        th { background: #f8fafc; font-weight: 600; color: #475569; font-size: 0.85em; letter-spacing: 0.5px; text-transform: uppercase; }
-        td { font-family: 'Caveat', cursive; font-size: 1.3em; color: var(--text-dark); }
-        .arabic-td { font-family: 'Aref Ruqaa', serif; font-size: 1.1em; direction: rtl; text-align: right; color: #334155; }
-
-        /* أزرار الصوت */
-        .speak-btn {
-            background: #ffffff;
-            border: 2px solid var(--blue);
-            color: var(--blue);
-            padding: 2px 10px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.7em;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 2px 5px rgba(37,99,235,0.2);
-            margin: 2px;
+        /* تنسيق الشعار */
+        .logo-wrapper {
             position: relative;
-            z-index: 100;
-            pointer-events: auto;
-        }
-        .speak-btn:hover { background: var(--blue); color: white; transform: translateY(-2px) scale(1.05); }
-        .speak-btn:active { transform: translateY(0) scale(0.95); }
-
-        /* تخصيص للموبايل والآيباد */
-        @media (max-width: 900px) {
-            .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 15px; } 
-            .swiper-slide { padding: 5px; align-items: flex-start; } 
-            .paper-card { 
-                max-height: 98vh; /* استغلال كامل الشاشة في الهواتف */
-                min-height: 90vh; 
-                border-radius: 12px; 
-                padding: 50px 15px 30px 15px; 
-                margin-top: 5px;
-            }
-            h1 { font-size: 2.5em; }
-            h2 { font-size: 2em; }
-            .logo-container { top: 10px; right: 10px; }
-            .logo { width: 45px; height: 45px; border-width: 2px; }
-            .teacher-name { display: none; }
-            figure.pro-emoji-box { padding: 10px; }
-            .huge-icon { font-size: 3em; }
+            width: 180px;
+            height: 180px;
+            margin-bottom: 2rem;
         }
 
-        /* مؤشر السحب لأسفل */
-        .swipe-indicator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--blue);
-            margin-top: 30px;
-            font-weight: 600;
-            font-size: 1.1em;
-            animation: bounceUpDown 2s infinite;
-        }
-        @keyframes bounceUpDown {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(15px); }
-        }
-
-        /* أزرار التنقل في الحاسوب (يمين ويسار) */
-        .swiper-button-next, .swiper-button-prev {
-            color: var(--blue) !important;
-            background: white;
-            width: 50px !important;
-            height: 50px !important;
+        .intro-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: 2px solid var(--blue);
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            position: relative;
+            z-index: 2;
         }
-        .swiper-button-next:after, .swiper-button-prev:after {
-            font-size: 1.2em !important;
-            font-weight: bold;
+
+        /* النصوص الإنجليزية */
+        .intro-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: #f8fafc;
+            letter-spacing: 6px;
+            margin-bottom: 0.5rem;
         }
-        .swiper-button-next:hover, .swiper-button-prev:hover {
-            background: var(--blue);
-            color: white !important;
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(37,99,235,0.3);
+
+        .intro-subtitle {
+            font-size: 1.2rem;
+            color: #d4af37;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            font-family: 'Amiri', serif;
         }
-        
-        /* إخفاء الأزرار الجانبية في شاشات الهواتف لأن السحب باللمس أفضل */
-        @media (max-width: 900px) {
-            .swiper-button-next, .swiper-button-prev {
-                display: none !important;
+
+        /* الزر الوقور */
+        .enter-btn {
+            padding: 15px 50px;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: #d4af37;
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enter-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* شاشة الانتقال السكينة */
+        .transition-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 10vw;
+            height: 10vw;
+            background: radial-gradient(circle, #ffffff 0%, #fef08a 40%, transparent 100%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        @media (max-width: 768px) {
+            .islamic-text {
+                font-size: 2.5rem;
+                padding: 0 20px;
+            }
+
+            .logo-wrapper {
+                width: 140px;
+                height: 140px;
+            }
+
+            .intro-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            .intro-subtitle {
+                font-size: 1rem;
+            }
+
+            .enter-btn {
+                font-size: 1.2rem;
+                padding: 12px 30px;
             }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
+    <div class="bg-glow"></div>
+    <div class="transition-overlay" id="overlay"></div>
 
-            <!-- Slide 1: Cover -->
-            <div class="swiper-slide">
-                <div class="paper-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: none;">
-                    <div class="logo-container" style="position: relative; right: auto; top: auto; flex-direction: column; margin-bottom: 10px;">
-                        <img src="assent/Logo.png" alt="Logo" class="logo" style="width: 120px; height: 120px; border-width: 4px;" onerror="this.style.display='none'">
-                        <span class="teacher-name" style="display: block; font-size: 1.5em; margin-top: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">MASTER ENGLISH DZ</span>
-                    </div>
-                    <h1>Summary of 4 MS Lessons</h1>
-                    <h3 style="color: #64748b; font-weight: 400; font-size: 1.3em;">Grammar, Vocab & Pronunciation <i class="fa-solid fa-star fa-spin text-yellow-400"></i></h3>
-                    
-                    <div style="width: 100%; max-width: 600px; margin-top: 20px;">
-                        <figure class="pro-emoji-box">
-                            <i class="fa-solid fa-book-open-reader huge-icon fa-bounce text-blue-500"></i>
-                            <figcaption>Prepare for your BEM exam with excellence.</figcaption>
-                        </figure>
-                    </div>
-                    
-                    <div class="swipe-indicator" style="flex-direction: row; animation: bounceLeftRight 2s infinite;">
-                        <span style="background: #eff6ff; padding: 5px 15px; border-radius: 20px;">Swipe Left / Right <i class="fa-solid fa-arrows-left-right"></i></span>
-                    </div>
-                    <style>
-                        @keyframes bounceLeftRight {
-                            0%, 100% { transform: translateX(0); }
-                            50% { transform: translateX(15px); }
-                        }
-                    </style>
-                </div>
+    <div class="intro-container">
+        <!-- 1. السلام عليكم أولاً -->
+        <div class="islamic-text" id="salam">السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ</div>
+
+        <!-- 2. ثم البسملة -->
+        <div class="islamic-text" id="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+
+        <!-- 3. محتوى الأكاديمية -->
+        <div class="academy-content" id="academyContent">
+            <div class="logo-wrapper">
+                <div class="glow-ring-outer"></div>
+                <img src="assent/Logo.png" alt="Master English Logo" class="intro-logo">
             </div>
 
-            <!-- Slide 2: Comparatives -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>1 & 2. Comparatives <span class="badge">GRAMMAR</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-scale-balanced fa-beat"></i> Comparative (Equality/Inferiority)</h3>
-                            <div class="arabic-hint"><i class="fa-solid fa-circle-info text-blue-500"></i> للمساواة أو عدم المساواة بين شيئين.</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Equality (=):</p>
-                            <div class="structure">as + adj + as</div>
-                            <div class="example">eg: Sami is <span class="highlight">as young as</span> Said.</div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Inferiority (≠):</p>
-                            <div class="structure">not + as + adj + as</div>
-                            <div class="example">eg: Egypt is <span class="highlight">not as far as</span> China.</div>
-                        </div>
-                        <div class="rule-box green">
-                            <h3 style="color: var(--green);"><i class="fa-solid fa-arrow-up-right-dots fa-bounce"></i> Comparative Form</h3>
-                            <div class="arabic-hint" style="border-color: var(--green);"><i class="fa-solid fa-circle-info text-green-500"></i> لمقارنة شيء بشيء آخر (أكبر من، أخطر من).</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Short Adjective:</p>
-                            <div class="structure">adj + er + than</div>
-                            <div class="example">eg: Algeria is <span class="highlight">larger than</span> Morocco.</div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Long Adjective:</p>
-                            <div class="structure">More + long adj + than</div>
-                            
-                            <figure class="pro-emoji-box">
-                                <div style="font-size: 3em; display: flex; gap: 15px; align-items:center;">
-                                    <i class="fa-solid fa-hippo fa-bounce text-purple-500"></i> 
-                                    <span style="font-size:0.5em; font-weight:bold; color:#64748b;">VS</span> 
-                                    <i class="fa-solid fa-cat fa-beat text-orange-500"></i>
-                                </div>
-                                <figcaption><strong>Ex:</strong> Tigers are <span class="highlight">more dangerous than</span> dogs.</figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
+            <h1 class="intro-title">MASTER ENGLISH DZ</h1>
+            
+            <!-- الفاصل الذهبي الأنيق -->
+            <div style="display:flex; align-items:center; gap:15px; margin-bottom:0.8rem;">
+                <div style="height:1px; width:80px; background:linear-gradient(to right, transparent, #d4af37);"></div>
+                <span style="color:#d4af37; font-size:1.3rem;">✦</span>
+                <div style="height:1px; width:80px; background:linear-gradient(to left, transparent, #d4af37);"></div>
             </div>
+            
+            <p class="intro-subtitle">ابدأ التعلم ببركة الله</p>
 
-            <!-- Slide 3: Superlatives & Irregulars -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>3. Superlatives & Irregulars <span class="badge">GRAMMAR</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box purple">
-                            <h3 style="color: var(--purple);"><i class="fa-solid fa-trophy fa-bounce text-yellow-500"></i> Superlative Form</h3>
-                            <div class="arabic-hint" style="border-color: var(--purple);"><i class="fa-solid fa-circle-info text-purple-500"></i> التفضيل: لمقارنة واحد بمجموعة (الأذكى، الأجمل).</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Short Adjective:</p>
-                            <div class="structure">The + short adj + est</div>
-                            <div class="example">eg: Issam is <span class="highlight">the smartest</span> student in the class.</div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Long Adjective:</p>
-                            <div class="structure">The most + long adj</div>
-                            <div class="example">eg: Iman is <span class="highlight">the most beautiful</span> girl.</div>
-                            
-                            <figure class="pro-emoji-box">
-                                <i class="fa-solid fa-medal huge-icon fa-beat text-yellow-500"></i>
-                                <figcaption>Highlighting the maximum degree.</figcaption>
-                            </figure>
-                        </div>
-                        <div class="rule-box red">
-                            <h3 style="color: var(--red);"><i class="fa-solid fa-triangle-exclamation fa-fade text-red-500"></i> Irregular Adjectives</h3>
-                            <div class="arabic-hint" style="border-color: var(--red);"><i class="fa-solid fa-circle-info text-red-500"></i> صفات شاذة لا تخضع للقاعدة (تُحفظ كما هي).</div>
-                            
-                            <table>
-                                <tr><th>Adjective</th><th>Comparative</th><th>Superlative</th></tr>
-                                <tr><td>Good (جيد)</td><td>better than</td><td>the best</td></tr>
-                                <tr><td>Bad (سيء)</td><td>worse than</td><td>the worst</td></tr>
-                                <tr><td>Many/much</td><td>more than</td><td>the most</td></tr>
-                                <tr><td>Little (قليل)</td><td>less than</td><td>the least</td></tr>
-                                <tr><td>Far (بعيد)</td><td>farther than</td><td>the farthest</td></tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 4: Qualifiers & Affixes -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>4 & 6. Qualifiers & Affixes <span class="badge">VOCAB</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box orange">
-                            <h3 style="color: var(--orange);"><i class="fa-solid fa-layer-group fa-beat"></i> 4. Qualifiers</h3>
-                            <div class="arabic-hint" style="border-color: var(--orange);"><i class="fa-solid fa-circle-info text-orange-500"></i> كلمات تسبق الصفة لتقويتها (جداً، للغاية).</div>
-                            
-                            <div class="structure">(Extremely, so, very) + base adj = strong adj</div>
-                            <div class="example" style="margin-top: 15px;">
-                                <i class="fa-solid fa-arrow-right text-orange-500 text-sm"></i> extremely big = <span class="highlight">huge</span>
-                            </div>
-                            
-                            <figure class="pro-emoji-box">
-                                <i class="fa-solid fa-mountain-sun huge-icon fa-fade text-slate-500"></i>
-                                <figcaption>A very big mountain is a <strong>huge</strong> mountain.</figcaption>
-                            </figure>
-                        </div>
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-puzzle-piece fa-spin-pulse"></i> 6. Forming adjectives (affixes)</h3>
-                            <div class="arabic-hint" style="border-color: var(--blue);"><i class="fa-solid fa-circle-info text-blue-500"></i> إضافة حروف في البداية للعكس، أو النهاية للصفة.</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Prefixes (opposites / الأضداد):</p>
-                            <div class="structure">im, il, ir, in, un, dis</div>
-                            <div class="example" style="font-size: 1.4em;">
-                                eg: <span class="highlight">im</span>moral, <span class="highlight">il</span>legal, <span class="highlight">ir</span>regular, <span class="highlight">un</span>kind, <span class="highlight">dis</span>honest.
-                            </div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Suffixes (اللواحق):</p>
-                            <div class="structure">Word + ful / less</div>
-                            <div class="example">eg: help<span class="highlight">ful</span> (متعاون), help<span class="highlight">less</span> (عاجز)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 5: Sequencers Part 1 -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>5. Sequencers & Linkers <span class="badge">PART 1</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box green">
-                            <h3 style="color: var(--green);"><i class="fa-solid fa-list-ol fa-bounce"></i> Time & Arguments</h3>
-                            <div class="arabic-hint" style="border-color: var(--green);"><i class="fa-solid fa-circle-info text-green-500"></i> لترتيب الوقت والأفكار في الفقرة (أولاً، ثم، أخيراً).</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Time sequencers:</p>
-                            <div class="structure">First, next, then, after that, finally.</div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Arguments linking:</p>
-                            <div class="structure">Firstly, secondly, moreover, in addition.</div>
-                        </div>
-                        <div class="rule-box purple">
-                            <h3 style="color: var(--purple);"><i class="fa-solid fa-bolt fa-shake text-yellow-500"></i> Cause & Effect</h3>
-                            <div class="arabic-hint" style="border-color: var(--purple);"><i class="fa-solid fa-circle-info text-purple-500"></i> للتعبير عن السبب (بسبب) والنتيجة (لذلك).</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Cause (لأن / بسبب):</p>
-                            <div class="example" style="font-size: 1.3em;">
-                                - Nabila went to Anchiano <span class="highlight">because</span> she want to visit da Vinci's house.
-                            </div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Effect (لذلك / كنتيجة):</p>
-                            <div class="example" style="font-size: 1.3em;">
-                                - I was tired, <span class="highlight">so</span> I went to relax.<br>
-                                - She didn't revise. <span class="highlight">As a result</span>, she didn't succeed.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 6: Sequencers Part 2 -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>5. Sequencers & Linkers <span class="badge">PART 2</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box red">
-                            <h3 style="color: var(--red);"><i class="fa-solid fa-not-equal fa-beat"></i> Difference</h3>
-                            <div class="arabic-hint" style="border-color: var(--red);"><i class="fa-solid fa-circle-info text-red-500"></i> للتعبير عن التناقض أو الاختلاف (بينما / على عكس).</div>
-                            
-                            <div class="structure">(whereas, unlike)</div>
-                            <div class="example">
-                                - <span class="highlight">Unlike</span> many children who live in villas, Dewi lives in a slum.<br><br>
-                                - Kateb Yacine's mother was poor, <span class="highlight">whereas</span> his French teacher was rich.
-                            </div>
-                        </div>
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-equals fa-bounce"></i> Similarity</h3>
-                            <div class="arabic-hint" style="border-color: var(--blue);"><i class="fa-solid fa-circle-info text-blue-500"></i> للتعبير عن التشابه والمماثلة (مثل).</div>
-                            
-                            <div class="structure">(like)</div>
-                            <div class="example">
-                                eg: I want to be a teacher <span class="highlight">like</span> my friend.
-                            </div>
-                            
-                            <figure class="pro-emoji-box">
-                                <div style="font-size: 3.5em; display: flex; gap: 10px; color: var(--blue);">
-                                    <i class="fa-solid fa-shapes fa-spin-pulse"></i>
-                                    <i class="fa-solid fa-equals" style="font-size: 0.5em; margin-top:25px;"></i>
-                                    <i class="fa-solid fa-shapes fa-spin-pulse"></i>
-                                </div>
-                                <figcaption>Expressing things that are exactly the same.</figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 7: Present Simple -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>7. The Present Simple <span class="badge">TENSES</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box green">
-                            <h3 style="color: var(--green);"><i class="fa-solid fa-clock fa-spin-pulse"></i> Rules</h3>
-                            <div class="arabic-hint" style="border-color: var(--green);"><i class="fa-solid fa-circle-info text-green-500"></i> المضارع البسيط: يستخدم للعادات والحقائق اليومية.</div>
-                            
-                            <ul style="font-size: 0.9em;">
-                                <li><i class="fa-solid fa-check text-green-500 icon"></i> <strong>Affirmative:</strong>
-                                    <br>Subj (he, she, it) + stem + <span class="highlight">s/es</span>
-                                    <div class="example" style="font-size: 1.4em;">eg: She <span class="highlight">goes</span> to school.</div>
-                                </li>
-                                <li style="margin-top: 15px;"><i class="fa-solid fa-xmark text-red-500 icon"></i> <strong>Negative (النفي):</strong>
-                                    <br>Subj (I, you, we, they) + <span class="highlight">don't</span>
-                                    <br>Subj (he, she, it) + <span class="highlight">doesn't</span>
-                                </li>
-                                <li style="margin-top: 15px;"><i class="fa-solid fa-question text-gray-500 icon"></i> <strong>Question (السؤال):</strong>
-                                    <br><span class="highlight">Do / Does</span> + Subject + stem ?
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-book-open fa-bounce"></i> Auxiliaries (Present)</h3>
-                            <table>
-                                <tr><th>Pronouns</th><th>To be (يكون)</th><th>To have (يملك)</th><th>To do (يفعل)</th></tr>
-                                <tr><td>I</td><td>am</td><td>have</td><td>do</td></tr>
-                                <tr><td>He/She/It</td><td>is</td><td>has</td><td>does</td></tr>
-                                <tr><td>You/We/They</td><td>are</td><td>have</td><td>do</td></tr>
-                            </table>
-                            <div class="arabic-hint" style="margin-top: 15px; border-color: var(--blue);">
-                                <i class="fa-solid fa-lightbulb text-yellow-500"></i> الأفعال المساعدة أساسية جداً لتركيب الجمل والأسئلة.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 8: Past Simple -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>8. The Past Simple <span class="badge">TENSES</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box orange">
-                            <h3 style="color: var(--orange);"><i class="fa-solid fa-clock-rotate-left fa-spin-pulse"></i> Rules & Markers</h3>
-                            <div class="arabic-hint" style="border-color: var(--orange);"><i class="fa-solid fa-circle-info text-orange-500"></i> الماضي البسيط: لحدث وقع وانتهى في الماضي.</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Time markers (دلالات الوقت):</p>
-                            <div class="structure" style="font-size: 0.8em;">yesterday / last week / in 1996 / ago</div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Affirmative:</p>
-                            <ul style="font-size: 0.9em;">
-                                <li><strong>Regular verbs (أفعال منتظمة):</strong> stem + <span class="highlight">ed</span></li>
-                                <li><strong>Irregular verbs (أفعال شاذة):</strong> (تحفظ من القائمة)</li>
-                            </ul>
-                            <div class="example">
-                                eg: We <span class="highlight">traveled</span> to Oran. (Regular)<br>
-                                He <span class="highlight">wrote</span> a story. (Irregular)
-                            </div>
-                        </div>
-                        <div class="rule-box red">
-                            <h3 style="color: var(--red);"><i class="fa-solid fa-clipboard-question fa-bounce"></i> Negative & Question</h3>
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Negative (النفي):</p>
-                            <div class="structure">Subject + didn't + stem</div>
-                            <div class="example">eg: He <span class="highlight">didn't write</span> a short story.</div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Question (السؤال):</p>
-                            <div class="structure">Did + subject + stem ?</div>
-                            <div class="example">eg: <span class="highlight">Did he write</span> a short story?</div>
-                            
-                            <figure class="pro-emoji-box">
-                                <i class="fa-solid fa-feather-pointed huge-icon fa-shake text-red-500"></i>
-                                <figcaption>He wrote a story in the past.</figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 9: Future & Present Perfect -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>9 & 10. Future & Perfect <span class="badge">TENSES</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box purple">
-                            <h3 style="color: var(--purple);"><i class="fa-solid fa-rocket fa-bounce text-purple-500"></i> 9. Future Simple</h3>
-                            <div class="arabic-hint" style="border-color: var(--purple); padding:5px;"><i class="fa-solid fa-circle-info text-purple-500"></i> المستقبل: حدث سيقع غداً أو لاحقاً.</div>
-                            
-                            <p style="font-size: 0.8em; font-weight: 600; color: #64748b;">Markers: soon / tomorrow / next</p>
-                            <ul style="font-size: 0.9em; margin-top: 10px;">
-                                <li><i class="fa-solid fa-check text-green-500 icon"></i> Subject + <span class="highlight">will</span> + stem
-                                    <div class="example" style="font-size: 1.2em;">I <span class="highlight">will go</span> to Paris.</div>
-                                </li>
-                                <li><i class="fa-solid fa-xmark text-red-500 icon"></i> Subject + <span class="highlight">won't</span> + stem
-                                    <div class="example" style="font-size: 1.2em;">Ahmed <span class="highlight">won't play</span>.</div>
-                                </li>
-                                <li><i class="fa-solid fa-question text-gray-500 icon"></i> <span class="highlight">Will</span> + subject + stem ?</li>
-                            </ul>
-                        </div>
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-check-double fa-fade text-blue-500"></i> 10. Present Perfect</h3>
-                            <div class="arabic-hint" style="border-color: var(--blue); padding:5px;"><i class="fa-solid fa-circle-info text-blue-500"></i> المضارع التام: بدأ بالماضي وله أثر الآن.</div>
-                            
-                            <p style="font-size: 0.8em; font-weight: 600; color: #64748b;">Markers: ever/never/just/since/for</p>
-                            <ul style="font-size: 0.9em; margin-top: 10px;">
-                                <li><i class="fa-solid fa-check text-green-500 icon"></i> Subj + <span class="highlight">have/has + pp</span>
-                                    <div class="example" style="font-size: 1.2em;">He <span class="highlight">has just met</span> his friend.</div>
-                                </li>
-                                <li><i class="fa-solid fa-xmark text-red-500 icon"></i> Subj + <span class="highlight">have/has not + pp</span></li>
-                                <li><i class="fa-solid fa-question text-gray-500 icon"></i> <span class="highlight">Have/Has</span> + Subj + pp ?
-                                    <div class="example" style="font-size: 1.2em;">Have you ever been to Europe?</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 10: Past Continuous & Passive Voice -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>11 & 12. Cont. & Passive <span class="badge">GRAMMAR</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box green">
-                            <h3 style="color: var(--green);"><i class="fa-solid fa-clock fa-spin"></i> 11. Past Continuous</h3>
-                            <div class="arabic-hint" style="border-color: var(--green);"><i class="fa-solid fa-circle-info text-green-500"></i> الماضي المستمر: حدث استمر لفترة في الماضي.</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Affirmative:</p>
-                            <div class="structure" style="font-size: 0.85em;">Subj (I, he, she, it) + was + stem(ing)</div>
-                            <div class="structure" style="font-size: 0.85em;">Subj (you, we, they) + were + stem(ing)</div>
-                            
-                            <div class="example" style="margin-top: 15px;">
-                                eg: I <span class="highlight">was playing</span> football yesterday.
-                            </div>
-                        </div>
-                        <div class="rule-box orange">
-                            <h3 style="color: var(--orange);"><i class="fa-solid fa-users-gear fa-beat text-orange-500"></i> 12. The Passive Voice</h3>
-                            <div class="arabic-hint" style="border-color: var(--orange);"><i class="fa-solid fa-circle-info text-orange-500"></i> المبني للمجهول: التركيز على المفعول به بدلاً من الفاعل.</div>
-                            
-                            <div class="structure" style="font-size: 0.85em;">Object + was/were + past participle + by + Subj</div>
-                            
-                            <figure class="pro-emoji-box">
-                                <i class="fa-brands fa-envira huge-icon fa-beat text-green-500"></i>
-                                <figcaption style="padding: 5px; font-size: 0.85em; text-align:center;">
-                                    <strong>Active:</strong> Gustave Eiffel designed the Eiffel Tower.<br>
-                                    <strong>Passive:</strong> The Eiffel Tower was designed by Gustave Eiffel.
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 11: Narrative & Conditional -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>13 & 14. Narrative & Conditional</h2>
-                    <div class="grid-2">
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-book fa-bounce text-blue-500"></i> 13. Narrative (Past)</h3>
-                            <div class="arabic-hint" style="border-color: var(--blue);"><i class="fa-solid fa-circle-info text-blue-500"></i> لربط حدثين في الماضي (بينما / عندما).</div>
-                            
-                            <div class="structure" style="font-size: 0.85em;">While (past continuous) , (past simple)</div>
-                            <div class="example" style="font-size: 1.1em;">
-                                - <span class="highlight">While</span> Kateb Yacine <span class="highlight">was getting</span> interested in school, he <span class="highlight">started</span> to drift away.
-                            </div>
-                            
-                            <div class="structure" style="font-size: 0.85em; margin-top:10px;">When (past simple) , (past continuous)</div>
-                            <div class="example" style="font-size: 1.1em;">
-                                - <span class="highlight">When</span> Lina <span class="highlight">phoned</span>, Nadia <span class="highlight">was doing</span> her homework.
-                            </div>
-                        </div>
-                        <div class="rule-box purple">
-                            <h3 style="color: var(--purple);"><i class="fa-solid fa-code-branch fa-beat text-purple-500"></i> 14. Conditional Type 1</h3>
-                            <div class="arabic-hint" style="border-color: var(--purple);"><i class="fa-solid fa-circle-info text-purple-500"></i> جملة الشرط: إذا فعلت كذا، سيحدث كذا.</div>
-                            
-                            <div class="structure" style="font-size: 0.85em;">If + (present simple) &rarr; (future simple)</div>
-                            <div class="example" style="font-size: 1.2em;">
-                                eg: <span class="highlight">If</span> you <span class="highlight">work</span> hard, you <span class="highlight">will succeed</span>.
-                            </div>
-                            <div class="structure" style="font-size: 0.85em; margin-top:10px;">If + (present simple) &rarr; (imperative/أمر)</div>
-                            <div class="example" style="font-size: 1.2em;">
-                                eg: <span class="highlight">If</span> you <span class="highlight">want</span> to be a good citizen, <span class="highlight">help</span> the poor.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 12: Imperative & Advice -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>15 & 16. Imperative & Advice</h2>
-                    <div class="grid-2">
-                        <div class="rule-box red">
-                            <h3 style="color: var(--red);"><i class="fa-solid fa-exclamation fa-shake text-red-500"></i> 15. The Imperative</h3>
-                            <div class="arabic-hint" style="border-color: var(--red);"><i class="fa-solid fa-circle-info text-red-500"></i> فعل الأمر: لإعطاء أوامر أو تعليمات.</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Positive (أمر إيجابي):</p>
-                            <div class="structure">stem (فعل بدون إضافات)</div>
-                            <div class="example">eg: <span class="highlight">clean</span> the board.</div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Negative (نهي):</p>
-                            <div class="structure">don't + stem</div>
-                            <div class="example">eg: <span class="highlight">don't clean</span>.</div>
-                        </div>
-                        <div class="rule-box green">
-                            <h3 style="color: var(--green);"><i class="fa-solid fa-comment-medical fa-bounce text-green-500"></i> 16. Giving Advice</h3>
-                            <div class="arabic-hint" style="border-color: var(--green);"><i class="fa-solid fa-circle-info text-green-500"></i> تقديم النصيحة باستخدام (Should / يجب أن).</div>
-                            
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ Positive:</p>
-                            <div class="structure">Subject + should + stem</div>
-                            <div class="example">eg: You <span class="highlight">should help</span> sick people.</div>
-                            
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px;">➤ Negative:</p>
-                            <div class="structure">Subject + shouldn't + stem</div>
-                            <div class="example">eg: You <span class="highlight">shouldn't be</span> selfish.</div>
-                            
-                            <figure class="pro-emoji-box">
-                                <i class="fa-solid fa-suitcase-medical huge-icon fa-beat text-green-500"></i>
-                                <figcaption>Giving proper advice to help others.</figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 13: Pronunciation (S & ED) Interactive Audio -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>Pronunciation <span class="badge">AUDIO ENABLED <i class="fa-solid fa-volume-high"></i></span></h2>
-                    
-                    <div class="arabic-hint" style="text-align: center; margin-bottom: 15px; border:none; background:#e0f2fe; color:var(--blue);">
-                        <i class="fa-solid fa-headphones fa-beat"></i> اضغط على الكلمات الزرقاء للاستماع إلى النطق الصحيح الاحترافي!
-                    </div>
-
-                    <div class="grid-2">
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-microphone-lines fa-bounce"></i> 1. Final «S»</h3>
-                            <table style="font-size: 0.9em;">
-                                <tr><th>/s/</th><th>/z/</th><th>/iz/</th></tr>
-                                <tr>
-                                    <td>
-                                        p - <span class="speak-btn" onclick="speakWord('helps')">helps <i class="fa-solid fa-volume-up"></i></span><br>
-                                        k - <span class="speak-btn" onclick="speakWord('likes')">likes <i class="fa-solid fa-volume-up"></i></span><br>
-                                        t - <span class="speak-btn" onclick="speakWord('accepts')">accepts <i class="fa-solid fa-volume-up"></i></span><br>
-                                        f - <span class="speak-btn" onclick="speakWord('briefs')">briefs <i class="fa-solid fa-volume-up"></i></span><br>
-                                        gh - <span class="speak-btn" onclick="speakWord('laughs')">laughs <i class="fa-solid fa-volume-up"></i></span><br>
-                                        ph - <span class="speak-btn" onclick="speakWord('graphs')">graphs <i class="fa-solid fa-volume-up"></i></span><br>
-                                        th - <span class="speak-btn" onclick="speakWord('baths')">baths <i class="fa-solid fa-volume-up"></i></span>
-                                    </td>
-                                    <td><br><strong style="font-size:1.2em; color:var(--text-dark);">The rest<br>(الباقي)</strong></td>
-                                    <td>
-                                        s - <span class="speak-btn" onclick="speakWord('dresses')">dresses <i class="fa-solid fa-volume-up"></i></span><br>
-                                        ce - <span class="speak-btn" onclick="speakWord('chances')">chances <i class="fa-solid fa-volume-up"></i></span><br>
-                                        x - <span class="speak-btn" onclick="speakWord('fixes')">fixes <i class="fa-solid fa-volume-up"></i></span><br>
-                                        z - <span class="speak-btn" onclick="speakWord('quizzes')">quizzes <i class="fa-solid fa-volume-up"></i></span><br>
-                                        ch - <span class="speak-btn" onclick="speakWord('watches')">watches <i class="fa-solid fa-volume-up"></i></span><br>
-                                        sh - <span class="speak-btn" onclick="speakWord('washes')">washes <i class="fa-solid fa-volume-up"></i></span><br>
-                                        ge - <span class="speak-btn" onclick="speakWord('changes')">changes <i class="fa-solid fa-volume-up"></i></span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="rule-box orange">
-                            <h3 style="color: var(--orange);"><i class="fa-solid fa-music fa-bounce"></i> 2. Final «ed»</h3>
-                            <table style="font-size: 0.9em;">
-                                <tr><th>/t/</th><th>/id/</th></tr>
-                                <tr>
-                                    <td>p, k, s, ch, sh, f<br><span class="speak-btn" onclick="speakWord('helped')">helped <i class="fa-solid fa-volume-up"></i></span></td>
-                                    <td>
-                                        t - <span class="speak-btn" onclick="speakWord('accepted')">accepted <i class="fa-solid fa-volume-up"></i></span><br>
-                                        d - <span class="speak-btn" onclick="speakWord('ended')">ended <i class="fa-solid fa-volume-up"></i></span>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <h3 style="color: var(--orange); margin-top: 20px;"><i class="fa-solid fa-compact-disc fa-spin"></i> 3. /ai/ vs /ei/</h3>
-                            <table style="font-size: 0.85em;">
-                                <tr><th>/ai/</th><th>/ei/</th></tr>
-                                <tr>
-                                    <td>
-                                        <span class="speak-btn" onclick="speakWord('lake')">lake <i class="fa-solid fa-volume-up"></i></span>
-                                        <span class="speak-btn" onclick="speakWord('like')">like <i class="fa-solid fa-volume-up"></i></span>
-                                    </td>
-                                    <td>
-                                        <span class="speak-btn" onclick="speakWord('prey')">prey <i class="fa-solid fa-volume-up"></i></span>
-                                        <span class="speak-btn" onclick="speakWord('wait')">wait <i class="fa-solid fa-volume-up"></i></span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 14: Silent Letters & CH/SH -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>Pronunciation <span class="badge">SILENT & EXCEPTIONS</span></h2>
-                    
-                    <div class="arabic-hint" style="text-align: center; margin-bottom: 15px; border:none; background:#e0f2fe; color:var(--blue);">
-                        <i class="fa-solid fa-headphones fa-beat"></i> اضغط على الكلمات الزرقاء للاستماع إلى النطق الصحيح الاحترافي!
-                    </div>
-
-                    <div class="grid-2">
-                        <div class="rule-box red">
-                            <h3 style="color: var(--red);"><i class="fa-solid fa-volume-xmark fa-fade"></i> 4. Silent Letters (تكتب ولا تنطق)</h3>
-                            <ul style="font-size: 0.95em;">
-                                <li><strong>Silent "k":</strong> <span class="speak-btn" onclick="speakWord('knife')"><del class="text-red-400">k</del>nife</span>, <span class="speak-btn" onclick="speakWord('knock')"><del class="text-red-400">k</del>nock</span></li>
-                                <li><strong>Silent "w":</strong> <span class="speak-btn" onclick="speakWord('write')"><del class="text-red-400">w</del>rite</span>, <span class="speak-btn" onclick="speakWord('answer')">ans<del class="text-red-400">w</del>er</span></li>
-                                <li><strong>Silent "l":</strong> <span class="speak-btn" onclick="speakWord('palm')">pa<del class="text-red-400">l</del>m</span>, <span class="speak-btn" onclick="speakWord('walk')">wa<del class="text-red-400">l</del>k</span></li>
-                                <li><strong>Silent "b":</strong> <span class="speak-btn" onclick="speakWord('lamb')">lam<del class="text-red-400">b</del></span>, <span class="speak-btn" onclick="speakWord('climb')">clim<del class="text-red-400">b</del></span></li>
-                                <li><strong>Silent "n":</strong> <span class="speak-btn" onclick="speakWord('autumn')">autum<del class="text-red-400">n</del></span></li>
-                            </ul>
-                        </div>
-                        <div class="rule-box purple">
-                            <h3 style="color: var(--purple);"><i class="fa-solid fa-spell-check fa-bounce"></i> 5. «ch» & «sh»</h3>
-                            <p style="font-weight: 600; margin-bottom: 5px;">➤ "Sh" /ʃ/ & "Ch" /tʃ/:</p>
-                            <div class="example" style="font-size: 1.1em; border:none; padding:0;">
-                                <strong>/ʃ/ (ش):</strong> <span class="speak-btn" onclick="speakWord('wish')">Wish</span>, <span class="speak-btn" onclick="speakWord('share')">share</span>, <span class="speak-btn" onclick="speakWord('shoot')">shoot</span>.<br>
-                                <strong>/tʃ/ (تش):</strong> <span class="speak-btn" onclick="speakWord('charity')">Charity</span>, <span class="speak-btn" onclick="speakWord('china')">china</span>, <span class="speak-btn" onclick="speakWord('cheap')">cheap</span>.
-                            </div>
-                            <p style="font-weight: 600; margin-top: 15px; margin-bottom: 5px; color:var(--red);">➤ Exceptions of "ch" = /k/ (استثناءات):</p>
-                            <div class="example" style="font-size: 1.1em; border:none; padding:0;">
-                                <span class="speak-btn" onclick="speakWord('parachute')">Parachute</span>, <span class="speak-btn" onclick="speakWord('chef')">chef</span>, <span class="speak-btn" onclick="speakWord('architect')">architect</span>, <span class="speak-btn" onclick="speakWord('school')">school</span>.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 15: Vocabulary -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>Vocabulary <span class="badge">ALL SEQUENCES</span></h2>
-                    <div class="grid-3">
-                        <div class="rule-box blue" style="padding: 15px;">
-                            <h3 style="color: var(--blue); font-size: 1.2em; text-align: center;"><i class="fa-solid fa-monument fa-beat"></i> Seq 1</h3>
-                            <table style="font-size: 0.8em; margin-top: 5px;">
-                                <tr><td>Landmark = monument</td><td class="arabic-td">معلم أثري</td></tr>
-                                <tr><td>famous = well-known</td><td class="arabic-td">مشهور</td></tr>
-                                <tr><td>ancient ≠ new</td><td class="arabic-td">قديم ≠ جديد</td></tr>
-                                <tr><td>job = occupation</td><td class="arabic-td">مهنة</td></tr>
-                                <tr><td>build = construct</td><td class="arabic-td">يبني</td></tr>
-                                <tr><td>dramatist = playwright</td><td class="arabic-td">كاتب مسرحي</td></tr>
-                                <tr><td>located = situated</td><td class="arabic-td">يقع</td></tr>
-                                <tr><td>travel / itinerary</td><td class="arabic-td">السفر/المسار</td></tr>
-                            </table>
-                        </div>
-                        <div class="rule-box green" style="padding: 15px;">
-                            <h3 style="color: var(--green); font-size: 1.2em; text-align: center;"><i class="fa-solid fa-face-smile fa-bounce"></i> Seq 2</h3>
-                            <table style="font-size: 0.8em; margin-top: 5px;">
-                                <tr><td>child / kid ≠ adult</td><td class="arabic-td">طفل ≠ بالغ</td></tr>
-                                <tr><td>angry = mad</td><td class="arabic-td">غاضب</td></tr>
-                                <tr><td>arrested ≠ released</td><td class="arabic-td">يعتقل ≠ يحرر</td></tr>
-                                <tr><td>good / nice ≠ bad</td><td class="arabic-td">جيد ≠ سيء</td></tr>
-                                <tr><td>brave = courageous</td><td class="arabic-td">شجاع</td></tr>
-                                <tr><td>confident</td><td class="arabic-td">واثق</td></tr>
-                                <tr><td>difficult ≠ easy</td><td class="arabic-td">صعب ≠ سهل</td></tr>
-                                <tr><td>tolerant</td><td class="arabic-td">متسامح</td></tr>
-                            </table>
-                        </div>
-                        <div class="rule-box orange" style="padding: 15px;">
-                            <h3 style="color: var(--orange); font-size: 1.2em; text-align: center;"><i class="fa-solid fa-handshake-angle fa-beat"></i> Seq 3</h3>
-                            <table style="font-size: 0.8em; margin-top: 5px;">
-                                <tr><td>Charity work</td><td class="arabic-td">عمل خيري</td></tr>
-                                <tr><td>community = society</td><td class="arabic-td">مجتمع</td></tr>
-                                <tr><td>citizen / citizenship</td><td class="arabic-td">مواطن/مواطنة</td></tr>
-                                <tr><td>overweight / diet</td><td class="arabic-td">سمنة / حمية</td></tr>
-                                <tr><td>healthy food</td><td class="arabic-td">أكل صحي</td></tr>
-                                <tr><td>succeed ≠ fail</td><td class="arabic-td">ينجح ≠ يفشل</td></tr>
-                                <tr><td>volunteering</td><td class="arabic-td">التطوع</td></tr>
-                                <tr><td>donating</td><td class="arabic-td">التبرع</td></tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 16: Exam Questions 1 -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>Questions <span class="badge">EXAM PREPARATION</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box green">
-                            <h3 style="color: var(--green);"><i class="fa-solid fa-circle-question fa-bounce"></i> 1- Yes/No Questions</h3>
-                            <ul style="font-size: 0.9em;">
-                                <li><strong>Do</strong> you play football? <span class="highlight">Yes, I do. / No, I do not.</span></li>
-                                <li><strong>Does</strong> he play? <span class="highlight">Yes, he does. / No, he does not.</span></li>
-                                <li><strong>Did</strong> you call me? <span class="highlight">Yes, I did. / No, I did not.</span></li>
-                                <li><strong>Are</strong> you sick? <span class="highlight">Yes, I am. / No, I am not.</span></li>
-                                <li><strong>Is</strong> the weather nice? <span class="highlight">Yes, it is. / No, it is not.</span></li>
-                                <li><strong>Will</strong> Tom go to school? <span class="highlight">Yes, he will. / No...</span></li>
-                                <li><strong>Have</strong> they returned? <span class="highlight">Yes, they have. / No...</span></li>
-                            </ul>
-                        </div>
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-magnifying-glass fa-spin-pulse"></i> 2- WH-Questions</h3>
-                            <table>
-                                <tr><td><strong>What...?</strong></td><td class="arabic-td">ماذا</td></tr>
-                                <tr><td><strong>Where...?</strong></td><td class="arabic-td">أين</td></tr>
-                                <tr><td><strong>When...?</strong></td><td class="arabic-td">متى</td></tr>
-                                <tr><td><strong>Who...?</strong></td><td class="arabic-td">مَن</td></tr>
-                                <tr><td><strong>Whose...?</strong></td><td class="arabic-td">لِمَن</td></tr>
-                                <tr><td><strong>Why...?</strong></td><td class="arabic-td">لماذا</td></tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 17: Exam Questions 2 (Mastery of language) -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>Mastery of Language <span class="badge">EXAM TASKS</span></h2>
-                    <div class="grid-2">
-                        <div class="rule-box purple" style="padding: 15px;">
-                            <h3 style="color: var(--purple); font-size: 1.2em;"><i class="fa-solid fa-pen-to-square fa-beat"></i> 3. Mastery Questions</h3>
-                            <div style="font-size: 0.85em; display: flex; flex-direction: column; gap: 8px;">
-                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
-                                    <strong>Supply the punctuation...</strong> <span class="arabic-text" style="font-size: 0.9em;">ضع علامات الوقف والأحرف الكبيرة</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
-                                    <strong>Correct the underlined mistakes.</strong> <span class="arabic-text" style="font-size: 0.9em;">صحح الأخطاء التي تحتها سطر</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
-                                    <strong>Reorder the words...</strong> <span class="arabic-text" style="font-size: 0.9em;">أعد ترتيب الكلمات</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
-                                    <strong>Rewrite using the suitable tense.</strong> <span class="arabic-text" style="font-size: 0.9em;">أعد كتابة المقطع بالزمن المناسب</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">
-                                    <strong>Turn into negative/passive.</strong> <span class="arabic-text" style="font-size: 0.9em;">حول إلى النفي / المبني للمجهول</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <strong>Cross out the odd word.</strong> <span class="arabic-text" style="font-size: 0.9em;">اشطب الكلمة الدخيلة</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="rule-box red" style="padding: 15px;">
-                            <h3 style="color: var(--red); font-size: 1.2em;"><i class="fa-solid fa-link fa-bounce"></i> 4. Equivalents / Opposites</h3>
-                            <div style="font-size: 0.9em; display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
-                                <div>
-                                    <strong style="color: var(--blue);">Match each word with its appropriate definition:</strong><br>
-                                    <span class="arabic-text" style="font-size: 0.9em; color: var(--red);">اربط كل كلمة بتعريفها المناسب</span>
-                                </div>
-                                <div>
-                                    <strong style="color: var(--blue);">Match the words in column A with their equivalents in column B:</strong><br>
-                                    <span class="arabic-text" style="font-size: 0.9em; color: var(--red);">اربط الكلمات في العمود (أ) بمرادفاتها في العمود (ب)</span>
-                                </div>
-                                <div>
-                                    <strong style="color: var(--blue);">Match the words in column A with their opposites in column B:</strong><br>
-                                    <span class="arabic-text" style="font-size: 0.9em; color: var(--red);">اربط الكلمات في العمود (أ) بأضدادها في العمود (ب)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 18: Situations 1 -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>Situations of Integration <span class="badge">PART 1</span></h2>
-                    
-                    <div class="grid-2">
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-map-location-dot fa-beat"></i> 1. Itinerary</h3>
-                            <div class="example" style="font-size: 1.1em; font-family: 'Poppins', sans-serif;">
-                                Last June, my family and I went on a trip all around Algeria. First, we started our itinerary from BBA. We visited El Moqrani Tower, built by Ottomans in 1556. Then, we took a train to Constantine to discover Sidi M’Cid Bridges. After that, we flew to Algiers to see The Great Mosque and the Martyrs Memorial. Finally, we moved to Tipaza, where we saw Roman Ruins. Our trip was amazing.
-                            </div>
-                        </div>
-                        <div class="rule-box orange">
-                            <h3 style="color: var(--orange);"><i class="fa-solid fa-plane fa-bounce"></i> 2. Travelling</h3>
-                            <div class="example" style="font-size: 1.1em; font-family: 'Poppins', sans-serif;">
-                                Millions of people travel to see other countries, modern cities, and ruins. They travel to enjoy picturesque places or learn about cultures. It's interesting to discover new things, meet people, try different food, and listen to music. Many tourists love taking photographs of sights, mountains, lakes, and forests. People travel by train, plane, ship, or car.
-                            </div>
-                        </div>
-                        <div class="rule-box green">
-                            <h3 style="color: var(--green);"><i class="fa-solid fa-address-card fa-beat"></i> 3. My Personal Profile</h3>
-                            <div class="example" style="font-size: 1.1em; font-family: 'Poppins', sans-serif;">
-                                Hello, my name is Asma. I am 14 years old. I live in a small village with my family. I am calm, honest, and kind. I am interested in reading stories and the Qur'an. I like travelling and cooking, but I dislike listening to music. My dream is to become a doctor because I like helping patients and poor people.
-                            </div>
-                        </div>
-                        <div class="rule-box purple">
-                            <h3 style="color: var(--purple);"><i class="fa-solid fa-user-tie fa-bounce"></i> 4. My Dream Career</h3>
-                            <div class="example" style="font-size: 1.1em; font-family: 'Poppins', sans-serif;">
-                                Hi, my name is Sara. When I grow up, I want to become a teacher. I like teaching so much. I want to teach people writing, reading, and speaking. I want to raise a great generation full of kindness, responsibility, and energy. I hope all my dreams come true one day.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 19: Situations 2 -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>Situations of Integration <span class="badge">PART 2</span></h2>
-                    
-                    <div class="grid-2">
-                        <div class="rule-box red">
-                            <h3 style="color: var(--red);"><i class="fa-solid fa-chalkboard-user fa-beat"></i> 5. My Favourite Teacher</h3>
-                            <div class="example" style="font-size: 1.1em; font-family: 'Poppins', sans-serif;">
-                                During my school life, I have met many teachers, but the best one was my English teacher. He was severe, smart, and skilful. He taught me how to be self-confident, careful, and serious. I respect my teachers and thank them for all what they did.
-                            </div>
-                        </div>
-                        <div class="rule-box blue">
-                            <h3 style="color: var(--blue);"><i class="fa-solid fa-child-reaching fa-bounce"></i> 6. Childhood Memories</h3>
-                            <div class="example" style="font-size: 1.1em; font-family: 'Poppins', sans-serif;">
-                                Childhood is exciting. I remember playing hide-and-seek with my friends. I didn’t use to buy new toys; I used to make them. We used to eat in the school canteen because our home was far. I used to like Arabic, but I didn’t use to prefer Maths. These are unforgettable memories.
-                            </div>
-                        </div>
-                        <div class="rule-box orange">
-                            <h3 style="color: var(--orange);"><i class="fa-solid fa-school fa-beat"></i> 7. School Memories</h3>
-                            <div class="example" style="font-size: 1.1em; font-family: 'Poppins', sans-serif;">
-                                School is where we learn and meet people. I remember the first day in primary school was hard because I met new friends. I used to sit at the first table. My favourite subject was Maths because I liked counting. My favourite teacher was kind, generous, and calm.
-                            </div>
-                        </div>
-                        <div class="rule-box green">
-                            <h3 style="color: var(--green);"><i class="fa-solid fa-trophy fa-bounce"></i> 8. The Best Moment</h3>
-                            <div class="example" style="font-size: 1.1em; font-family: 'Poppins', sans-serif;">
-                                Life is full of events. One of my best moments was when I got my Primary School Certificate. I was playing when my father called me saying: "You got it, dear". We organized a big party and invited friends and family. I have never forgotten this day.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 20: Situations 3 & Irregular Verbs -->
-            <div class="swiper-slide">
-                <div class="paper-card">
-                    <div class="logo-container">
-                        <span class="teacher-name">MASTER ENGLISH DZ</span>
-                        <img src="assent/Logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                    </div>
-                    <h2>Situations 3 & Verbs <span class="badge">FINISH</span></h2>
-                    
-                    <div class="grid-2">
-                        <div>
-                            <div class="rule-box purple" style="margin-bottom: 20px;">
-                                <h3 style="color: var(--purple);"><i class="fa-solid fa-sad-cry fa-beat"></i> 9. The Worst Moment</h3>
-                                <div class="example" style="font-size: 1em; font-family: 'Poppins', sans-serif;">
-                                    One of the worst memories was when I failed in the first year of middle school. I cried a lot. My parents were sad. I didn’t work hard, and I wasted time playing video games. This experience changed my way of thinking, and I became more mature.
-                                </div>
-                            </div>
-                            <div class="rule-box blue" style="margin-bottom: 20px;">
-                                <h3 style="color: var(--blue);"><i class="fa-solid fa-hand-holding-heart fa-bounce"></i> 10. Good Citizen</h3>
-                                <div class="example" style="font-size: 1em; font-family: 'Poppins', sans-serif;">
-                                    To be a good citizen, we should respect the laws and do our duties. We should participate in charity work and help needy people. We must not insult people; we should look after our neighbours and be honest to build a better community.
-                                </div>
-                            </div>
-                            <div class="rule-box red">
-                                <h3 style="color: var(--red);"><i class="fa-solid fa-smog fa-beat"></i> 11. Pollution</h3>
-                                <div class="example" style="font-size: 1em; font-family: 'Poppins', sans-serif;">
-                                    Pollution is a danger facing the environment. People throw litters, cut trees, and pollute water. We shouldn’t throw rubbish; we must use bins. Moreover, we must plant trees. Our environment is in danger, and we should save it.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="rule-box green" style="overflow-y: auto; max-height: 500px;">
-                            <h3 style="color: var(--green); position: sticky; top: 0; background: var(--light-green); padding: 10px 0;"><i class="fa-solid fa-table fa-bounce"></i> Irregular Verbs List</h3>
-                            <table style="font-size: 0.85em; width: 100%; border-collapse: collapse;">
-                                <tr><th>Verb</th><th>Past Simple</th><th>Past Participle</th></tr>
-                                <tr><td>Break</td><td>Broke</td><td>Broken</td></tr>
-                                <tr><td>Speak</td><td>Spoke</td><td>Spoken</td></tr>
-                                <tr><td>Steal</td><td>Stole</td><td>Stolen</td></tr>
-                                <tr><td>Choose</td><td>Chose</td><td>Chosen</td></tr>
-                                <tr><td>Freeze</td><td>Froze</td><td>Frozen</td></tr>
-                                <tr><td>Wake</td><td>Woke</td><td>Woken</td></tr>
-                                <tr><td>Buy</td><td>Bought</td><td>Bought</td></tr>
-                                <tr><td>Bring</td><td>Brought</td><td>Brought</td></tr>
-                                <tr><td>Fight</td><td>Fought</td><td>Fought</td></tr>
-                                <tr><td>Think</td><td>Thought</td><td>Thought</td></tr>
-                                <tr><td>Learn</td><td>Learnt</td><td>Learnt</td></tr>
-                                <tr><td>Mean</td><td>Meant</td><td>Meant</td></tr>
-                                <tr><td>Burn</td><td>Burnt</td><td>Burnt</td></tr>
-                                <tr><td>Build</td><td>Built</td><td>Built</td></tr>
-                                <tr><td>Feel</td><td>Felt</td><td>Felt</td></tr>
-                                <tr><td>Catch</td><td>Caught</td><td>Caught</td></tr>
-                                <tr><td>Teach</td><td>Taught</td><td>Taught</td></tr>
-                                <tr><td>Read</td><td>Read</td><td>Read</td></tr>
-                                <tr><td>Write</td><td>Wrote</td><td>Written</td></tr>
-                                <tr><td>Be</td><td>Was/Were</td><td>Been</td></tr>
-                                <tr><td>Do</td><td>Did</td><td>Done</td></tr>
-                                <tr><td>Go</td><td>Went</td><td>Gone</td></tr>
-                                <tr><td>Have</td><td>Had</td><td>Had</td></tr>
-                                <tr><td>See</td><td>Saw</td><td>Seen</td></tr>
-                                <tr><td>Eat</td><td>Ate</td><td>Eaten</td></tr>
-                                <tr><td>Take</td><td>Took</td><td>Taken</td></tr>
-                                <tr><td>Get</td><td>Got</td><td>Gotten</td></tr>
-                                <tr><td>Make</td><td>Made</td><td>Made</td></tr>
-                                <tr><td>Find</td><td>Found</td><td>Found</td></tr>
-                                <tr><td>Give</td><td>Gave</td><td>Given</td></tr>
-                                <tr><td>Know</td><td>Knew</td><td>Known</td></tr>
-                                <tr><td>Draw</td><td>Drew</td><td>Drawn</td></tr>
-                                <tr><td>Fly</td><td>Flew</td><td>Flown</td></tr>
-                                <tr><td>Keep</td><td>Kept</td><td>Kept</td></tr>
-                                <tr><td>Sleep</td><td>Slept</td><td>Slept</td></tr>
-                                <tr><td colspan="3" style="text-align:center; font-family:'Poppins', sans-serif; font-size:0.9em; color:#64748b;">(Scroll for more verbs if needed)</td></tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <button class="enter-btn" id="enterBtn" onclick="enterPortal()">دخول الأكاديمية ←</button>
         </div>
-        
-        <div class="swiper-pagination"></div>
-        <!-- أزرار التقليب للحاسوب -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
     </div>
 
-    <!-- Speech Synthesis JS -->
     <script>
-        var currentUtterance = null;
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
 
-        function speakWord(text) {
-            if (!('speechSynthesis' in window)) {
-                alert("عذراً، متصفحك لا يدعم ميزة النطق الصوتي!");
-                return;
-            }
-            
-            // إلغاء أي نطق يسبقه لمنع التداخل
-            window.speechSynthesis.cancel();
-            
-            // تجهيز الكلمة للنطق
-            currentUtterance = new SpeechSynthesisUtterance(text);
-            
-            // إعدادات الصوت الاحترافية (بدون شروط معقدة)
-            currentUtterance.lang = 'en-GB'; // لهجة بريطانية قياسية
-            currentUtterance.rate = 0.85; // سرعة بطيئة ومناسبة للتعليم
-            currentUtterance.pitch = 0.9; // نبرة صوت أعمق وأكثر رزانة
-            
-            // تشغيل الصوت فوراً
-            window.speechSynthesis.speak(currentUtterance);
+            // ═══════════════════════════════════════
+            // الترتيب الصحيح: السلام عليكم أولاً ثم بسم الله
+            // ═══════════════════════════════════════
+
+            // 1. السلام عليكم أولاً — تحية المسلم
+            tl.to("#salam", { opacity: 1, y: 0, duration: 2, ease: "power2.inOut" })
+              .to("#salam", { opacity: 0, y: -15, duration: 1.5, ease: "power2.inOut", delay: 1.5 })
+
+              // 2. ثم بسم الله الرحمن الرحيم — افتتاح التعلم
+              .to("#bismillah", { opacity: 1, y: 0, duration: 2, ease: "power2.inOut" })
+              .to("#bismillah", { opacity: 0, y: -15, duration: 1.5, ease: "power2.inOut", delay: 1.5 })
+
+              // 3. ظهور الأكاديمية بسلاسة ونور
+              .to("#academyContent", { opacity: 1, y: 0, duration: 2, ease: "power3.out" });
+        });
+
+        function enterPortal() {
+            document.getElementById('enterBtn').style.pointerEvents = 'none';
+
+            const tl = gsap.timeline();
+
+            // انتقال هادئ ومنير يعبر عن نور العلم
+            tl.to("#academyContent", { opacity: 0, y: -20, duration: 1, ease: "power2.inOut" })
+                .to("#overlay", { scale: 30, opacity: 1, duration: 1.5, ease: "power2.inOut" }, "-=0.5")
+                .call(() => {
+                    window.location.href = 'lessons_hub.html';
+                });
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            direction: "horizontal", // السحب الأفقي (يمين / يسار)
-            mousewheel: true, // تفعيل التمرير بعجلة الفأرة
-            spaceBetween: 30,
-            effect: "slide",
-            grabCursor: true,
-            preventClicks: false, /* السماح بالضغط على العناصر داخل الشريحة */
-            preventClicksPropagation: false,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-                dynamicBullets: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            keyboard: {
-                enabled: true,
-            },
-        });
-    </script>
 </body>
+
 </html>
